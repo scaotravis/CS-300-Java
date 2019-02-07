@@ -3,8 +3,8 @@ public class BookLibraryTests {
 
   /**
    * Checks that the constructor of Book class correctly initializes all instances fields for a new
-   * Book object; this includes title, author, borrowerCardBarCode, ID, and increments nextID static
-   * field.
+   * Book object; this includes title, author, borrowerCardBarCode, ID (this test also implicitly
+   * checks the increments nextID static field)
    * 
    * @return true if the test passed, false otherwise
    */
@@ -36,8 +36,48 @@ public class BookLibraryTests {
     return testPassed;
   }
 
+  /**
+   * Checks whether all implemented getter methods defined within the Book class work correctly.
+   * This includes .getAuthor(), .getTitle(), .getBorrowerCardBarCode(), .getID()
+   * 
+   * @return true if the test passed, false otherwise
+   */
+  public static boolean testBookGetters() {
+    boolean testPassed = true; // boolean local variable evaluated to true if this test passed,
+                               // false otherwise
+
+    // creates a new object of Book class
+    Book book = new Book("TITLE", "AUTHOR");
+
+    // checks all get methods
+    if (book.getAuthor() != "AUTHOR" || book.getTitle() != "TITLE"
+        || book.getBorrowerCardBarCode() != null || book.getID() != 4) { // book ID is 4 since there
+                                                                         // are already 3 books
+                                                                         // created in the previous
+                                                                         // test
+      testPassed = false;
+    }
+
+    return testPassed;
+  }
+
+
+  /**
+   * Checks whether returnBook() method defined within your Book class sets correctly the instance
+   * field borrowerCardBarCode
+   * 
+   * @return true if the test passed, false otherwise
+   */
+  public static boolean testBookReturnBook() {
+    boolean testPassed = false;
+
+    return testPassed;
+  }
+
+
   public static void main(String[] args) {
     System.out.println(testBookConstructor());
+    System.out.println(testBookGetters());
   }
 
 }
