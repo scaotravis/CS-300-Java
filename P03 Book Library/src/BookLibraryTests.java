@@ -95,32 +95,44 @@ public class BookLibraryTests {
     return testPassed;
   }
 
+  /**
+   * Checks that a new Book object is automatically available; when the book is borrowed, it becomes
+   * unavailable; when the book is returned, it automatically becomes available again.
+   * 
+   * @return true if the test passed, false otherwise
+   */
   public static boolean testIsAvailable() {
-    boolean testPassed = true;
+    boolean testPassed = true; // boolean local variable evaluated to true if this test passed,
+                               // false otherwise
 
     Book book = new Book("TITLE", "AUTHOR");
-    
+
     // book now has yet to be borrowed by anyone; checks that book is available
     if (book.isAvailable() != true) {
-      testPassed = false; 
+      testPassed = false;
     }
 
     // sets the book to be borrowed; checks that book now is not available
     book.borrowBook(123456);
     if (book.isAvailable() != false) {
-      testPassed = false; 
+      testPassed = false;
     }
-    
+
     // returns the book; checks that book now is available again
     book.returnBook();
     if (book.isAvailable() != true) {
-      testPassed = false; 
+      testPassed = false;
     }
 
     return testPassed;
   }
 
 
+  /**
+   * Main method call to run all tests. 
+   * 
+   * @param args arguments to call all testing methods. 
+   */
   public static void main(String[] args) {
     System.out.println(testBookConstructor());
     System.out.println(testBookGetters());
