@@ -12,33 +12,22 @@ public class Book {
                                        // When borrowerCardBarCode == null, the book is available
                                        // (no one has the book)
 
-  // Constructors
+  // Constructor
   /**
-   * Default constructor sets book's author and title to null, gives the book correct ID, and sets
-   * the book to be available.
+   * Construct a new Book object and initialize its instance fields
+   * 
+   * @param title  title of this new book
+   * @param author author of this new book
    */
-  public Book() {
+  public Book(String title, String author) {
     this.ID = Book.nextId;
     Book.nextId++;
     this.borrowerCardBarCode = null; // when a book is created, nobody has borrowed it yet
-    this.author = null;
-    this.title = null;
-  }
-
-  /**
-   * Alternative constructor that does everything the default constructor does, plus sets the book
-   * title and author to match the input provided
-   * 
-   * @param title title of the book
-   * @param author author of the book
-   */
-  public Book(String title, String author) {
-    this(); // load default constructor setup
     this.title = title;
     this.author = author;
   }
 
-
+  // Methods of this class
   /**
    * Return the author of this book
    * 
@@ -104,5 +93,5 @@ public class Book {
   public boolean isAvailable() {
     return (this.borrowerCardBarCode == null);
   }
-
+  
 }

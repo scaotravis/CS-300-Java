@@ -1,3 +1,6 @@
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
 
 public class BookLibraryTests {
 
@@ -20,9 +23,9 @@ public class BookLibraryTests {
     }
 
     // creates the second book; checks all instance fields
-    Book b2 = new Book();
-    if (b2.getTitle() != null || b2.getAuthor() != null || b2.getBorrowerCardBarCode() != null
-        || b2.getID() != 2) {
+    Book b2 = new Book("A Different Title", "A Different Author");
+    if (b2.getTitle() != "A Different Title" || b2.getAuthor() != "A Different Author"
+        || b2.getBorrowerCardBarCode() != null || b2.getID() != 2) {
       testPassed = false;
     }
 
@@ -127,17 +130,65 @@ public class BookLibraryTests {
     return testPassed;
   }
 
+  /**
+   * 
+   * 
+   * @return true if the test passed, false otherwise
+   */
+  public static boolean testSubscriberCheckoutBook() {
+    boolean testPassed = true; // boolean local variable evaluated to true if this test passed,
+                               // false otherwise
+
+    // creates 13 books available for checkout
+    ArrayList<Book> bookShelf = new ArrayList<>();
+    for (int i = 0; i <= 13; i++) {
+      bookShelf.add(new Book("Title " + i, "Author " + i));
+    }
+
+    // creates a new subscriber
+    Subscriber subscriber = new Subscriber("Amy", 1234, "University Ave", "9876543210");
+
+    // attempts to check out 11 books, which is larger than MAX_BOOKS_CHECKED_OUT (10); this should
+    // return an error message informing user that they cannot check out more than
+    // MAX_BOOKS_CHECKED_OUT
+    for (int i = 0; i < 11; i++) {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      PrintStream methodOutput = new PrintStream(baos);
+      PrintStream previousOutput = System.out; // save the old system printout into previousOutput
+      System.setOut(methodOutput); // tell java to print method output into a specific PrintStream
+      subscriber.checkoutBook(bookShelf.get(i)); // call method
+      System.out.flush(); // clear out all current outputs, ready to put previousOutput back
+      System.setOut(previousOutput); // put old outputs back into the console
+      String methodOutputString = baos.toString(); // store printed method output into a String
+
+      if (i != 10) {
+        if (!(methodOutputString.equals(""))) {
+          testPassed = false;
+          break;
+        }
+      } else {
+        if (!(methodOutputString.equals("Checkout Failed: You cannot check out more than 10 books."
+            + System.lineSeparator()))) {
+          testPassed = false;
+          break;
+        }
+      }
+    }
+
+    return testPassed;
+  }
 
   /**
-   * Main method call to run all tests. 
+   * Main method call to run all tests.
    * 
-   * @param args arguments to call all testing methods. 
+   * @param args arguments to call all testing methods.
    */
   public static void main(String[] args) {
     System.out.println(testBookConstructor());
     System.out.println(testBookGetters());
     System.out.println(testBookReturnBook());
     System.out.println(testIsAvailable());
+    System.out.println(testSubscriberCheckoutBook());
   }
 
 }
