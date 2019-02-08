@@ -116,15 +116,15 @@ public class Subscriber {
   public void checkoutBook(Book book) {
     try {
 
-      if (book.isAvailable() == false) {
-        throw new Exception("Sorry, " + book.getTitle() + " is not available.");
-      }
       if (this.isBookInBooksCheckedOut(book) == true) {
         throw new Exception("You have already checked out " + book.getTitle() + " book.");
       }
       if (this.booksCheckedOut.size() >= Subscriber.MAX_BOOKS_CHECKED_OUT) {
         throw new Exception("Checkout Failed: You cannot check out more than "
             + Subscriber.MAX_BOOKS_CHECKED_OUT + " books.");
+      }
+      if (book.isAvailable() == false) {
+        throw new Exception("Sorry, " + book.getTitle() + " is not available.");
       }
 
       // if nothing has been thrown, checks out the book

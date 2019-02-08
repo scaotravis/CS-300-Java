@@ -131,7 +131,10 @@ public class BookLibraryTests {
   }
 
   /**
-   * 
+   * Checks that when check out books, a subscriber can only check out less than
+   * MAX_BOOKS_CHECKED_OUT allowed. Plus, checking out a book results in correct recording of
+   * borrowerCardBarCode in the book object, and the checked out book is recorded in subscriber's
+   * booksCheckedOut list
    * 
    * @return true if the test passed, false otherwise
    */
@@ -139,9 +142,9 @@ public class BookLibraryTests {
     boolean testPassed = true; // boolean local variable evaluated to true if this test passed,
                                // false otherwise
 
-    // creates 13 books available for checkout
+    // creates 13 books (of index 0 to 12) available for checkout
     ArrayList<Book> bookShelf = new ArrayList<>();
-    for (int i = 0; i <= 13; i++) {
+    for (int i = 0; i < 13; i++) {
       bookShelf.add(new Book("Title " + i, "Author " + i));
     }
 
@@ -152,6 +155,8 @@ public class BookLibraryTests {
     // return an error message informing user that they cannot check out more than
     // MAX_BOOKS_CHECKED_OUT
     for (int i = 0; i < 11; i++) {
+
+      // below records the warning message printed into the console, if there is any
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       PrintStream methodOutput = new PrintStream(baos);
       PrintStream previousOutput = System.out; // save the old system printout into previousOutput
@@ -161,18 +166,111 @@ public class BookLibraryTests {
       System.setOut(previousOutput); // put old outputs back into the console
       String methodOutputString = baos.toString(); // store printed method output into a String
 
-      if (i != 10) {
-        if (!(methodOutputString.equals(""))) {
+      if (i != 10) { // book from index 0 to 9 was able to check out
+        if (!(methodOutputString.equals(""))) { // since the books can be checked out, no warning
+                                                // message should be printed
           testPassed = false;
           break;
         }
-      } else {
+        if (subscriber.isBookInBooksCheckedOut(bookShelf.get(i)) == false) { // book from index 0 to
+                                                                             // 9 should be
+                                                                             // unavailable
+          testPassed = false;
+          break;
+        }
+        if (!(bookShelf.get(i).getBorrowerCardBarCode().equals(subscriber.getCARD_BAR_CODE()))) {
+          // book being checked out should record correct borrowerCardBarCode
+          testPassed = false;
+          break;
+        }
+      } else { // book of index 10 cannot be checked out
         if (!(methodOutputString.equals("Checkout Failed: You cannot check out more than 10 books."
             + System.lineSeparator()))) {
           testPassed = false;
           break;
         }
+        if (subscriber.isBookInBooksCheckedOut(bookShelf.get(i)) == true) { // book of index 10
+                                                                            // should still be
+                                                                            // available
+          testPassed = false;
+          break;
+        }
+        if (bookShelf.get(i).getBorrowerCardBarCode() != null) { // book of index 10 should have
+                                                                 // borrowerCardBarCode to be null
+          testPassed = false;
+          break;
+        }
       }
+    }
+
+    return testPassed;
+  }
+
+  /**
+   * Checks that if a subscriber wants to check out a book already in their hand, the correct
+   * warning message will be printed in the console
+   * 
+   * @return true if the test passed, false otherwise
+   */
+  public static boolean testSubscriberRepeatedCheckout() {
+    boolean testPassed = true; // boolean local variable evaluated to true if this test passed,
+                               // false otherwise
+
+    Book book = new Book("Title", "Author");
+    Subscriber subscriber = new Subscriber("Adam", 1357, "Johnson St", "1234567890");
+
+    // subscriber repeatedly checks out book
+    // below records the warning message printed into the console
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    PrintStream methodOutput = new PrintStream(baos);
+    PrintStream previousOutput = System.out; // save the old system printout into previousOutput
+    System.setOut(methodOutput); // tell java to print method output into a specific PrintStream
+    // call method
+    for (int i = 0; i < 2; i++) { // check out twice
+      subscriber.checkoutBook(book);
+    }
+    System.out.flush(); // clear out all current outputs, ready to put previousOutput back
+    System.setOut(previousOutput); // put old outputs back into the console
+    String methodOutputString = baos.toString(); // store printed method output into a String
+
+    if (!(methodOutputString.equals(
+        "You have already checked out " + book.getTitle() + " book." + System.lineSeparator()))) {
+      testPassed = false;
+    }
+
+    return testPassed;
+  }
+
+  /**
+   * Checks that if a subscriber is trying to check out a book that is not available, then a warning
+   * message will be printed into the console
+   * 
+   * @return true if the test passed, false otherwise
+   */
+  public static boolean testSubscriberCheckOutBookNotAvailable() {
+    boolean testPassed = true; // boolean local variable evaluated to true if this test passed,
+                               // false otherwise
+
+    Book book = new Book("Title", "Author");
+    Subscriber subscriber1 = new Subscriber("Amy", 1234, "University Ave", "9876543210");
+    Subscriber subscriber2 = new Subscriber("Adam", 1357, "Johnson St", "1234567890");
+
+    // subscriber1 and 2 both check out the same book
+    // below records the warning message printed into the console
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    PrintStream methodOutput = new PrintStream(baos);
+    PrintStream previousOutput = System.out; // save the old system printout into previousOutput
+    System.setOut(methodOutput); // tell java to print method output into a specific PrintStream
+    // call method
+    subscriber1.checkoutBook(book);
+    subscriber2.checkoutBook(book);
+    System.out.flush(); // clear out all current outputs, ready to put previousOutput back
+    System.setOut(previousOutput); // put old outputs back into the console
+    String methodOutputString = baos.toString(); // store printed method output into a String
+
+    if (!(methodOutputString
+        .equals("Sorry, " + book.getTitle() + " is not available." + System.lineSeparator()))) {
+      testPassed = false;
     }
 
     return testPassed;
@@ -189,6 +287,8 @@ public class BookLibraryTests {
     System.out.println(testBookReturnBook());
     System.out.println(testIsAvailable());
     System.out.println(testSubscriberCheckoutBook());
+    System.out.println(testSubscriberRepeatedCheckout());
+    System.out.println(testSubscriberCheckOutBookNotAvailable()); 
   }
 
 }
