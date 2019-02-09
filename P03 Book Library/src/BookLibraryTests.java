@@ -2,6 +2,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
+/**
+ * Tests the book library we built using Book, Subscriber, Librarian, and Library classes
+ * 
+ * @author Travis Cao
+ */
 public class BookLibraryTests {
 
   /**
@@ -11,7 +16,7 @@ public class BookLibraryTests {
    * 
    * @return true if the test passed, false otherwise
    */
-  public static boolean testBookConstructor() {
+  public static boolean testBookConstructorGetters() {
     boolean testPassed = true; // boolean local variable evaluated to true if this test passed,
                                // false otherwise
 
@@ -36,42 +41,16 @@ public class BookLibraryTests {
       testPassed = false;
     }
 
-    return testPassed;
-  }
-
-  /**
-   * Checks whether all implemented getter methods defined within the Book class work correctly.
-   * This includes .getAuthor(), .getTitle(), .getBorrowerCardBarCode(), .getID()
-   * 
-   * @return true if the test passed, false otherwise
-   */
-  public static boolean testBookGetters() {
-    boolean testPassed = true; // boolean local variable evaluated to true if this test passed,
-                               // false otherwise
-
-    // creates a new object of Book class
-    Book book = new Book("TITLE", "AUTHOR");
-
-    // checks all get methods
-    if (book.getAuthor() != "AUTHOR" || book.getTitle() != "TITLE"
-        || book.getBorrowerCardBarCode() != null || book.getID() != 4) { // book ID is 4 since there
-                                                                         // are already 3 books
-                                                                         // created in the previous
-                                                                         // test
-      testPassed = false;
-    }
-
-    // checks that, after borrowing the book, the .getBorrowerCardBarCode() method should return the
+    // checks that, after borrowing b3, its .getBorrowerCardBarCode() method should return the
     // correct borrowerCardBarCode
-    book.borrowBook(12345);
+    b3.borrowBook(12345);
 
-    if (book.getBorrowerCardBarCode() != 12345) {
+    if (b3.getBorrowerCardBarCode() != 12345) {
       testPassed = false;
     }
 
     return testPassed;
   }
-
 
   /**
    * Checks whether returnBook() in the Book class sets correctly the instance field
@@ -275,6 +254,28 @@ public class BookLibraryTests {
 
     return testPassed;
   }
+  
+  /**
+   * Checks that a librarian has to have the correct password to access the library system
+   * 
+   * @return true if the test passed, false otherwise
+   */
+  public static boolean testLibrarianCheckPassword() {
+    boolean testPassed = true; // boolean local variable evaluated to true if this test passed,
+                               // false otherwise
+    
+    Librarian librarian = new Librarian("Name", "PaSsWoRd"); 
+    
+    if (librarian.checkPassword("password") == true) {
+      testPassed = false; 
+    }
+    
+    if (librarian.checkPassword("PaSsWoRd") == false) {
+      testPassed = false; 
+    }
+    
+    return testPassed;
+  }
 
   /**
    * Main method call to run all tests.
@@ -282,13 +283,13 @@ public class BookLibraryTests {
    * @param args arguments to call all testing methods.
    */
   public static void main(String[] args) {
-    System.out.println(testBookConstructor());
-    System.out.println(testBookGetters());
+    System.out.println(testBookConstructorGetters());
     System.out.println(testBookReturnBook());
     System.out.println(testIsAvailable());
     System.out.println(testSubscriberCheckoutBook());
     System.out.println(testSubscriberRepeatedCheckout());
-    System.out.println(testSubscriberCheckOutBookNotAvailable()); 
+    System.out.println(testSubscriberCheckOutBookNotAvailable());
+    System.out.println(testLibrarianCheckPassword());
   }
 
 }

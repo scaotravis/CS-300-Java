@@ -1,4 +1,9 @@
 
+/**
+ * A class to model a simple book
+ * 
+ * @author Travis Cao
+ */
 public class Book {
 
   // class/static fields

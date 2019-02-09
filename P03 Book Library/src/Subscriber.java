@@ -1,5 +1,11 @@
 import java.util.ArrayList;
 
+/**
+ * This class models a public library subscriber. A subscriber is a card holder who can borrow
+ * (checkout) and return library books
+ * 
+ * @author Travis Cao
+ */
 public class Subscriber {
 
   // static fields
@@ -21,7 +27,7 @@ public class Subscriber {
                                            // out books
   private ArrayList<Book> booksReturned; // list of the books returned by this subscriber
 
-  // constructor
+  // Constructor
   /**
    * Creates a new subscriber with given name, address, and phone number, and initializes its other
    * instance fields
