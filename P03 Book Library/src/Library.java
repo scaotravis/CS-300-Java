@@ -210,7 +210,7 @@ public class Library {
    * 
    * @param books ArrayList of books
    */
-  public static void displayBooks(ArrayList<Book> books) {
+  public void displayBooks(ArrayList<Book> books) {
     // Traverse the list of books and display book id, title, author, and availability of each book
     for (int i = 0; i < books.size(); i++) {
       System.out.print("<Book ID>: " + books.get(i).getID() + " ");
@@ -329,6 +329,52 @@ public class Library {
    * @param scanner Scanner object used to read the librarian command lines
    */
   private void readProcessLibrarianCommand(Scanner scanner) {
+    final String PROMPT_COMMAND_LINE = "ENTER COMMAND: ";
+    displayLibrarianMenu(); // display the librarian menu
+    System.out.print(PROMPT_COMMAND_LINE);
+    String command = scanner.nextLine(); // read user command line
+    String[] commands = command.trim().split(" "); // split user command
+    while (commands[0].trim().charAt(0) != '9') { // '9': Log out of commander interface
+      switch (commands[0].trim().charAt(0)) {
+        case '1': // add new book
+          this.addBook(commands[1].trim(), commands[2].trim());
+          break;
+        case '2': // add new subscriber
+          this.addSubscriber(commands[1].trim(), Integer.parseInt(commands[2].trim()),
+              commands[3].trim(), commands[4].trim());
+          break;
+        case '3': // check out a book
+          Subscriber subscriberWhoChecksOut =
+              this.findSubscriber(Integer.parseInt(commands[1].trim()));
+          Book bookToCheckOut = this.findBook(Integer.parseInt(commands[2].trim()));
+          subscriberWhoChecksOut.checkoutBook(bookToCheckOut);
+          break;
+        case '4': // return a book
+          Subscriber subscriberWhoReturns =
+              this.findSubscriber(Integer.parseInt(commands[1].trim()));
+          Book bookToReturn = this.findBook(Integer.parseInt(commands[2].trim()));
+          subscriberWhoReturns.checkoutBook(bookToReturn);
+          break;
+        case '5': // display personal info of a subscriber
+          Subscriber subscriberToDisplayInfo =
+              this.findSubscriber(Integer.parseInt(commands[1].trim()));
+          subscriberToDisplayInfo.displayPersonalInfo();
+        case '6': // display books checked out by a subscriber
+          Subscriber subscriberToDisplayBooksCheckedOut =
+              this.findSubscriber(Integer.parseInt(commands[1].trim()));
+          subscriberToDisplayBooksCheckedOut.displayBooksCheckedOut();
+        case '7': // display all books
+          this.displayBooks(this.books);
+        case '8': // remove a book
+          Book bookToRemove = this.findBook(Integer.parseInt(commands[1].trim())); 
+          this.books.remove(bookToRemove); 
+      }
+      // read and split next user command line
+      displayLibrarianMenu(); // display the library management system main menu
+      System.out.print(PROMPT_COMMAND_LINE);
+      command = scanner.nextLine(); // read user command line
+      commands = command.trim().split(" "); // split user command line
+    }
   }
 
   /**
@@ -339,14 +385,14 @@ public class Library {
    */
   private void readProcessSubscriberCommand(Subscriber subscriber, Scanner scanner) {
   }
-  
+
   /**
-   * Returns all books in the library, available for borrowing or not. Built for testing. 
+   * Returns all books in the library, available for borrowing or not. Built for testing.
    * 
    * @return an ArrayList of all books in the library
    */
   public ArrayList<Book> getBooks() {
-    return this.books; 
+    return this.books;
   }
 
   /**
