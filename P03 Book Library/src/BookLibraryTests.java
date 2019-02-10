@@ -140,7 +140,7 @@ public class BookLibraryTests {
       PrintStream methodOutput = new PrintStream(baos);
       PrintStream previousOutput = System.out; // save the old system printout into previousOutput
       System.setOut(methodOutput); // tell java to print method output into a specific PrintStream
-      subscriber.checkoutBook(bookShelf.get(i)); // call method
+      subscriber.checkoutBook(bookShelf.get(i)); // calls method
       System.out.flush(); // clear out all current outputs, ready to put previousOutput back
       System.setOut(previousOutput); // put old outputs back into the console
       String methodOutputString = baos.toString(); // store printed method output into a String
@@ -204,7 +204,7 @@ public class BookLibraryTests {
     PrintStream methodOutput = new PrintStream(baos);
     PrintStream previousOutput = System.out; // save the old system printout into previousOutput
     System.setOut(methodOutput); // tell java to print method output into a specific PrintStream
-    // call method
+    // calls method
     for (int i = 0; i < 2; i++) { // check out twice
       subscriber.checkoutBook(book);
     }
@@ -240,7 +240,7 @@ public class BookLibraryTests {
     PrintStream methodOutput = new PrintStream(baos);
     PrintStream previousOutput = System.out; // save the old system printout into previousOutput
     System.setOut(methodOutput); // tell java to print method output into a specific PrintStream
-    // call method
+    // calls method
     subscriber1.checkoutBook(book);
     subscriber2.checkoutBook(book);
     System.out.flush(); // clear out all current outputs, ready to put previousOutput back
@@ -254,7 +254,7 @@ public class BookLibraryTests {
 
     return testPassed;
   }
-  
+
   /**
    * Checks that a librarian has to have the correct password to access the library system
    * 
@@ -263,17 +263,74 @@ public class BookLibraryTests {
   public static boolean testLibrarianCheckPassword() {
     boolean testPassed = true; // boolean local variable evaluated to true if this test passed,
                                // false otherwise
-    
-    Librarian librarian = new Librarian("Name", "PaSsWoRd"); 
-    
+
+    Librarian librarian = new Librarian("Name", "PaSsWoRd");
+
     if (librarian.checkPassword("password") == true) {
-      testPassed = false; 
+      testPassed = false;
     }
-    
+
     if (librarian.checkPassword("PaSsWoRd") == false) {
-      testPassed = false; 
+      testPassed = false;
     }
-    
+
+    return testPassed;
+  }
+
+  /**
+   * Checks that findBookByAuthor() method in Library class can correctly return a book (or books)
+   * of the specified author (case insensitive), and if no book with the specified author exists, an
+   * empty ArrayList of class Book is returned
+   * 
+   * @return true if the test passed, false otherwise
+   */
+  public static boolean testLibraryFindBookByAuthor() {
+    boolean testPassed = true; // boolean local variable evaluated to true if this test passed,
+                               // false otherwise
+
+    Library library = new Library("Madison", "Bob", "9087");
+
+    // below records all messages printed into the console
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    PrintStream methodOutput = new PrintStream(baos);
+    PrintStream previousOutput = System.out; // save the old system printout into previousOutput
+    System.setOut(methodOutput); // tell java to print method output into a specific PrintStream
+
+    // calls methods
+    library.addBook("Title 1", "Adam Something");
+    library.addBook("Title 2", "Adam Something");
+    library.addBook("Title 3", "Amy");
+    ArrayList<Book> booksFound1 = library.findBookByAuthor("ADAM soMEthinG");
+    ArrayList<Book> booksFound2 = library.findBookByAuthor("Nonexisting Author");
+
+    System.out.flush(); // clear out all current outputs, ready to put previousOutput back
+    System.setOut(previousOutput); // put old outputs back into the console
+    String methodOutputString = baos.toString(); // store printed method output into a String
+
+    // what should be returned
+    ArrayList<Book> booksFound1Correct = new ArrayList<>();
+    booksFound1Correct.add(library.getBooks().get(0));
+    booksFound1Correct.add(library.getBooks().get(1));
+
+    if (!(booksFound1.equals(booksFound1Correct))) {
+      testPassed = false;
+    }
+    if (!(booksFound2.equals(new ArrayList<Book>()))) {
+      testPassed = false;
+    }
+
+    // checks that correct outputs have been printed into the console (result from adding books to
+    // the library
+    final String CORRECT_CONSOLE_OUTPUT =
+        "Book with Title Title 1 is successfully added to the library." + System.lineSeparator()
+            + "Book with Title Title 2 is successfully added to the library."
+            + System.lineSeparator()
+            + "Book with Title Title 3 is successfully added to the library."
+            + System.lineSeparator();
+    if (!(methodOutputString.equals(CORRECT_CONSOLE_OUTPUT))) {
+      testPassed = false;
+    }
+
     return testPassed;
   }
 
@@ -290,6 +347,7 @@ public class BookLibraryTests {
     System.out.println(testSubscriberRepeatedCheckout());
     System.out.println(testSubscriberCheckOutBookNotAvailable());
     System.out.println(testLibrarianCheckPassword());
+    System.out.println(testLibraryFindBookByAuthor());
   }
 
 }
