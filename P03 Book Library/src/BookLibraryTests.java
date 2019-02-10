@@ -25,6 +25,8 @@ public class BookLibraryTests {
     if (b1.getTitle() != "A Title" || b1.getAuthor() != "An Author"
         || b1.getBorrowerCardBarCode() != null || b1.getID() != 1) {
       testPassed = false;
+      System.out.println("Problem detected: Adding a new book using Book class constructor "
+          + "failed: either title, author, borrowerCardBarCode, or ID is wrong.");
     }
 
     // creates the second book; checks all instance fields
@@ -32,6 +34,8 @@ public class BookLibraryTests {
     if (b2.getTitle() != "A Different Title" || b2.getAuthor() != "A Different Author"
         || b2.getBorrowerCardBarCode() != null || b2.getID() != 2) {
       testPassed = false;
+      System.out.println("Problem detected: Adding a new book using Book class constructor "
+          + "failed: either title, author, borrowerCardBarCode, or ID is wrong.");
     }
 
     // creates the third book; checks all instance fields
@@ -39,6 +43,8 @@ public class BookLibraryTests {
     if (b3.getTitle() != "Another Title" || b3.getAuthor() != "Another Author"
         || b3.getBorrowerCardBarCode() != null || b3.getID() != 3) {
       testPassed = false;
+      System.out.println("Problem detected: Adding a new book using Book class constructor "
+          + "failed: either title, author, borrowerCardBarCode, or ID is wrong.");
     }
 
     // checks that, after borrowing b3, its .getBorrowerCardBarCode() method should return the
@@ -47,6 +53,8 @@ public class BookLibraryTests {
 
     if (b3.getBorrowerCardBarCode() != 12345) {
       testPassed = false;
+      System.out.println("Problem detected: After borrowing a book, borrowerCardBarCode should "
+          + "change from null to subscriber's borrowerCardBarCode. But, it was not the case.");
     }
 
     return testPassed;
@@ -72,6 +80,8 @@ public class BookLibraryTests {
     book.returnBook();
     if (book.getBorrowerCardBarCode() != null) {
       testPassed = false;
+      System.out.println("Problem detected: returning a book should result in borrowerCardBarCode "
+          + "changed back to null. But, it was not the case.");
     }
 
     return testPassed;
@@ -92,18 +102,24 @@ public class BookLibraryTests {
     // book now has yet to be borrowed by anyone; checks that book is available
     if (book.isAvailable() != true) {
       testPassed = false;
+      System.out.println("Problem detected: after adding a new book, the book should be available "
+          + "for borrowing. But, it was not the case.");
     }
 
     // sets the book to be borrowed; checks that book now is not available
     book.borrowBook(123456);
     if (book.isAvailable() != false) {
       testPassed = false;
+      System.out.println("Problem detected: after one subscriber checking out the book, the book "
+          + "should be unavailable. But, it was not the case.");
     }
 
     // returns the book; checks that book now is available again
     book.returnBook();
     if (book.isAvailable() != true) {
       testPassed = false;
+      System.out.println("Problem detected: after a book is returned, the book should become "
+          + "available. But, it was not the case.");
     }
 
     return testPassed;
@@ -149,34 +165,52 @@ public class BookLibraryTests {
         if (!(methodOutputString.equals(""))) { // since the books can be checked out, no warning
                                                 // message should be printed
           testPassed = false;
+          System.out.println("Problem detected: when a subscriber has borrowed less than "
+              + "MAX_BOOKS_CHECKED_OUT, they should be able to borrow all available books with no "
+              + "warning message printed into the console. But, it was not the case.");
           break;
         }
         if (subscriber.isBookInBooksCheckedOut(bookShelf.get(i)) == false) { // book from index 0 to
                                                                              // 9 should be
                                                                              // unavailable
           testPassed = false;
+          System.out.println("Problem detected: when checking out a book, the book should be "
+              + "added to the subscriber's list of borrowed books. But, it was not the case.");
           break;
         }
         if (!(bookShelf.get(i).getBorrowerCardBarCode().equals(subscriber.getCARD_BAR_CODE()))) {
           // book being checked out should record correct borrowerCardBarCode
           testPassed = false;
+          System.out.println("Problem detected: when a subscriber borrows a book, the book should "
+              + "record the subscriber's borrowerCardBarCode. But, it was not the case.");
           break;
         }
       } else { // book of index 10 cannot be checked out
         if (!(methodOutputString.equals("Checkout Failed: You cannot check out more than 10 books."
             + System.lineSeparator()))) {
           testPassed = false;
+          System.out.println("Problem detected: when a borrower borrowed more than "
+              + "MAX_BOOKS_CHECKED_OUT, the subscriber should not be able to borrow any more book, "
+              + "and a warning message should be printed into the console. But, it was not the "
+              + "case.");
           break;
         }
         if (subscriber.isBookInBooksCheckedOut(bookShelf.get(i)) == true) { // book of index 10
                                                                             // should still be
                                                                             // available
           testPassed = false;
+          System.out.println("Problem detected: when a borrower borrowed more than "
+              + "MAX_BOOKS_CHECKED_OUT, the subscriber should not be able to borrow any more book. "
+              + "But, it was not the case.");
           break;
         }
         if (bookShelf.get(i).getBorrowerCardBarCode() != null) { // book of index 10 should have
                                                                  // borrowerCardBarCode to be null
           testPassed = false;
+          System.out.println("Problem detected: when a borrower borrowed more than "
+              + "MAX_BOOKS_CHECKED_OUT, the subscriber should not be able to borrow any more book. "
+              + "Thus, any book the subscriber attempts to borrow should remain available. But, "
+              + "it was not the case.");
           break;
         }
       }
@@ -215,6 +249,9 @@ public class BookLibraryTests {
     if (!(methodOutputString.equals(
         "You have already checked out " + book.getTitle() + " book." + System.lineSeparator()))) {
       testPassed = false;
+      System.out.println("Problem detected: when a subscriber attempts to check out a book already "
+          + "in their hand, a warning message should be printed into the console. But, it was not "
+          + "the case.");
     }
 
     return testPassed;
@@ -250,6 +287,9 @@ public class BookLibraryTests {
     if (!(methodOutputString
         .equals("Sorry, " + book.getTitle() + " is not available." + System.lineSeparator()))) {
       testPassed = false;
+      System.out.println("Problem detected: when a subscriber attempts to check out a book that is "
+          + "not available, a warning message should be printed into the console. But, it was "
+          + "not the case.");
     }
 
     return testPassed;
@@ -268,10 +308,14 @@ public class BookLibraryTests {
 
     if (librarian.checkPassword("password") == true) {
       testPassed = false;
+      System.out.println("Problem detected: when a librarian keys in the wrong password, checking "
+          + "their password should return false. But, it was not the case.");
     }
 
     if (librarian.checkPassword("PaSsWoRd") == false) {
       testPassed = false;
+      System.out.println("Problem detected: when a librarian keys in the correct password, checking"
+          + " their password should return true. But, it was not the case.");
     }
 
     return testPassed;
@@ -314,9 +358,14 @@ public class BookLibraryTests {
 
     if (!(booksFound1.equals(booksFound1Correct))) {
       testPassed = false;
+      System.out.println("Problem detected: use findBookByAuthor() method should result in an "
+          + "ArrayList containing all books by that author (case insensitive for what author "
+          + "name has been inputed). But, it was not the case.");
     }
     if (!(booksFound2.equals(new ArrayList<Book>()))) {
       testPassed = false;
+      System.out.println("Problem detected: when no book by a specific author exists in the library"
+          + ", an empty ArrayList should be returned. But, it was not the case.");
     }
 
     // checks that correct outputs have been printed into the console (result from adding books to
@@ -340,14 +389,22 @@ public class BookLibraryTests {
    * @param args arguments to call all testing methods.
    */
   public static void main(String[] args) {
-    System.out.println(testBookConstructorGetters());
-    System.out.println(testBookReturnBook());
-    System.out.println(testIsAvailable());
-    System.out.println(testSubscriberCheckoutBook());
-    System.out.println(testSubscriberRepeatedCheckout());
-    System.out.println(testSubscriberCheckOutBookNotAvailable());
-    System.out.println(testLibrarianCheckPassword());
-    System.out.println(testLibraryFindBookByAuthor());
+    System.out.println("===TESTS BEGIN===" + System.lineSeparator());
+    System.out.println(
+        "testBookConstructorGetters(): " + testBookConstructorGetters() + System.lineSeparator());
+    System.out.println("testBookReturnBook(): " + testBookReturnBook() + System.lineSeparator());
+    System.out.println("testIsAvailable(): " + testIsAvailable() + System.lineSeparator());
+    System.out.println(
+        "testSubscriberCheckoutBook(): " + testSubscriberCheckoutBook() + System.lineSeparator());
+    System.out.println("testSubscriberRepeatedCheckout(): " + testSubscriberRepeatedCheckout()
+        + System.lineSeparator());
+    System.out.println("testSubscriberCheckOutBookNotAvailable(): "
+        + testSubscriberCheckOutBookNotAvailable() + System.lineSeparator());
+    System.out.println(
+        "testLibrarianCheckPassword(): " + testLibrarianCheckPassword() + System.lineSeparator());
+    System.out.println(
+        "testLibraryFindBookByAuthor(): " + testLibraryFindBookByAuthor() + System.lineSeparator());
+    System.out.println("===TESTS COMPLETES===");
   }
 
 }

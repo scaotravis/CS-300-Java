@@ -359,15 +359,19 @@ public class Library {
           Subscriber subscriberToDisplayInfo =
               this.findSubscriber(Integer.parseInt(commands[1].trim()));
           subscriberToDisplayInfo.displayPersonalInfo();
+          break;
         case '6': // display books checked out by a subscriber
           Subscriber subscriberToDisplayBooksCheckedOut =
               this.findSubscriber(Integer.parseInt(commands[1].trim()));
           subscriberToDisplayBooksCheckedOut.displayBooksCheckedOut();
+          break;
         case '7': // display all books
           this.displayBooks(this.books);
+          break;
         case '8': // remove a book
-          Book bookToRemove = this.findBook(Integer.parseInt(commands[1].trim())); 
-          this.books.remove(bookToRemove); 
+          Book bookToRemove = this.findBook(Integer.parseInt(commands[1].trim()));
+          this.books.remove(bookToRemove);
+          break;
       }
       // read and split next user command line
       displayLibrarianMenu(); // display the library management system main menu
@@ -384,6 +388,46 @@ public class Library {
    * @param scanner    Scanner object used to read the librarian command lines
    */
   private void readProcessSubscriberCommand(Subscriber subscriber, Scanner scanner) {
+    final String PROMPT_COMMAND_LINE = "ENTER COMMAND: ";
+    displaySubscriberMenu(); // display the subscriber menu
+    System.out.print(PROMPT_COMMAND_LINE);
+    String command = scanner.nextLine(); // read user command line
+    String[] commands = command.trim().split(" "); // split user command
+    while (commands[0].trim().charAt(0) != '9') { // '9': Log out of commander interface
+      switch (commands[0].trim().charAt(0)) {
+        case '1': // check out a book
+          Book bookToCheckOut = this.findBook(Integer.parseInt(commands[1].trim()));
+          subscriber.checkoutBook(bookToCheckOut);
+          break;
+        case '2': // return a book
+          Book bookToReturn = this.findBook(Integer.parseInt(commands[1].trim()));
+          subscriber.returnBook(bookToReturn);
+          break;
+        case '3': // search a book by title
+          this.displayBooks(this.findBookByTitle(commands[1].trim()));
+          break;
+        case '4': // search a book by author
+          this.displayBooks(this.findBookByAuthor(commands[1].trim()));
+          break;
+        case '5': // print the list of books checked out
+          subscriber.displayBooksCheckedOut();
+          break;
+        case '6': // print history of returned books
+          subscriber.displayHistoryBooksReturned();
+          break;
+        case '7': // update address
+          subscriber.setAddress(commands[1].trim());
+          break;
+        case '8': // update phone number
+          subscriber.setPhoneNumber(commands[1].trim());
+          break;
+      }
+      // read and split next user command line
+      displaySubscriberMenu(); // display the library management system main menu
+      System.out.print(PROMPT_COMMAND_LINE);
+      command = scanner.nextLine(); // read user command line
+      commands = command.trim().split(" "); // split user command line
+    }
   }
 
   /**
