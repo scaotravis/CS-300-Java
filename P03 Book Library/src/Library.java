@@ -388,7 +388,7 @@ public class Library {
           Subscriber subscriberWhoReturns =
               this.findSubscriber(Integer.parseInt(commands[1].trim()));
           Book bookToReturn = this.findBook(Integer.parseInt(commands[2].trim()));
-          subscriberWhoReturns.checkoutBook(bookToReturn);
+          subscriberWhoReturns.returnBook(bookToReturn);
           break;
         case '5': // display personal info of a subscriber
           Subscriber subscriberToDisplayInfo =
