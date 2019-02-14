@@ -185,15 +185,15 @@ public class Subscriber {
    * @param book reference to the book to return by this subscriber
    */
   public void returnBook(Book book) {
-    this.booksReturned.add(book);
     if (this.isBookInBooksCheckedOut(book) == true) {
       for (int i = 0; i < this.booksCheckedOut.size(); i++) {
         if (this.booksCheckedOut.get(i) == book) {
           this.booksCheckedOut.remove(i);
         }
       }
+      book.returnBook();
+      this.booksReturned.add(book);
     }
-    book.returnBook();
   }
 
   /**

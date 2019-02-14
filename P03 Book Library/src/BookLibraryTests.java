@@ -260,7 +260,7 @@ public class BookLibraryTests {
    * 
    * @return true if the test passed, false otherwise
    */
-  public static boolean testSubscriberRepeatedCheckout() {
+  public static boolean testSubscriberRepeatedlyCheckout() {
     boolean testPassed = true; // boolean local variable evaluated to true if this test passed,
                                // false otherwise
 
@@ -431,7 +431,7 @@ public class BookLibraryTests {
     System.out.println("testIsAvailable(): " + testIsAvailable() + System.lineSeparator());
     System.out.println(
         "testSubscriberCheckoutBook(): " + testSubscriberCheckoutBook() + System.lineSeparator());
-    System.out.println("testSubscriberRepeatedCheckout(): " + testSubscriberRepeatedCheckout()
+    System.out.println("testSubscriberRepeatedlyCheckout(): " + testSubscriberRepeatedlyCheckout()
         + System.lineSeparator());
     System.out.println("testSubscriberCheckOutBookNotAvailable(): "
         + testSubscriberCheckOutBookNotAvailable() + System.lineSeparator());
