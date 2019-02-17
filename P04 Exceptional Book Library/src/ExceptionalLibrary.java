@@ -686,50 +686,51 @@ public class ExceptionalLibrary {
     this.checkCommandArgumentsCount(commands, 2);
 
     // commands[1] file name
-    File file = new File(commands[1]);
-
     try {
-      Scanner fin = new Scanner(file);
-      while (fin.hasNextLine()) {
-        String line = fin.nextLine();
-        try {
-          if (line.trim().equals("")) {
-            line = fin.nextLine(); // skip current line if empty
+      File file = new File(commands[1]); // might throw NullPointerException
+
+      try {
+        Scanner fin = new Scanner(file); // might throw FileNotFoundException
+        while (fin.hasNextLine()) {
+          String line = fin.nextLine();
+          try {
+            if (line.trim().equals("")) {
+              line = fin.nextLine(); // skip current line if empty
+            }
+
+            String[] titleAndAuthor = line.split(":");
+
+            // titleAndAuthor[0] title; titleAndAuthor[1] author
+            String title = titleAndAuthor[0].trim(); // might throw ArrayIndexOutOfBoundsException
+            String author = titleAndAuthor[1].trim(); // might throw ArrayIndexOutOfBoundsException
+
+            // to let the program quietly loading all books without printing the "book successfully
+            // added" message to the console, we print messages when adding a book into a different
+            // PrintStream
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            PrintStream methodOutput = new PrintStream(baos);
+            PrintStream previousOutput = System.out; // save the old system printout into
+                                                     // previousOutput
+            System.setOut(methodOutput); // tell java to print method output into a specific
+                                         // PrintStream
+
+            // titleAndAuthor[0] title; titleAndAuthor[1] author
+            this.addBook(title, author);
+
+            System.out.flush(); // clear out all current outputs, ready to put previousOutput back
+            System.setOut(previousOutput); // put old outputs back into the console
+          } catch (ArrayIndexOutOfBoundsException e) {
+            // skip this line, but print out an error about incorrectly formatted line
+            System.out.println(
+                "Error: Found incorrectly formatted line in file " + commands[1] + ": " + line);
           }
-
-          String[] titleAndAuthor = line.split(":");
-
-          // titleAndAuthor[0] title; titleAndAuthor[1] author
-          String title = titleAndAuthor[0].trim();
-          String author = titleAndAuthor[1].trim();
-
-          // to let the program quietly loading all books without printing the "book successfully
-          // added" message to the console, we print messages when adding a book into a different
-          // PrintStream
-          ByteArrayOutputStream baos = new ByteArrayOutputStream();
-          PrintStream methodOutput = new PrintStream(baos);
-          PrintStream previousOutput = System.out; // save the old system printout into
-                                                   // previousOutput
-          System.setOut(methodOutput); // tell java to print method output into a specific
-                                       // PrintStream
-
-          // titleAndAuthor[0] title; titleAndAuthor[1] author
-          this.addBook(title, author);
-
-          System.out.flush(); // clear out all current outputs, ready to put previousOutput back
-          System.setOut(previousOutput); // put old outputs back into the console
-        } catch (NullPointerException e) {
-          // skip this line, but print out an error about incorrectly formatted line
-          System.out.println(
-              "Error: Found incorrectly formatted line in file " + commands[1] + ": " + line);
-        } catch (ArrayIndexOutOfBoundsException e) {
-          // skip this line, but print out an error about incorrectly formatted line
-          System.out.println(
-              "Error: Found incorrectly formatted line in file " + commands[1] + ": " + line);
         }
+        fin.close();
+      } catch (FileNotFoundException e) {
+        System.out.println("Error: Could NOT load books contents from file " + commands[1]);
       }
-      fin.close();
-    } catch (FileNotFoundException e) {
+
+    } catch (NullPointerException e) {
       System.out.println("Error: Could NOT load books contents from file " + commands[1]);
     }
   }
