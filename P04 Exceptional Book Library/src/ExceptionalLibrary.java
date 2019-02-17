@@ -704,21 +704,8 @@ public class ExceptionalLibrary {
             String title = titleAndAuthor[0].trim(); // might throw ArrayIndexOutOfBoundsException
             String author = titleAndAuthor[1].trim(); // might throw ArrayIndexOutOfBoundsException
 
-            // to let the program quietly loading all books without printing the "book successfully
-            // added" message to the console, we print messages when adding a book into a different
-            // PrintStream
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            PrintStream methodOutput = new PrintStream(baos);
-            PrintStream previousOutput = System.out; // save the old system printout into
-                                                     // previousOutput
-            System.setOut(methodOutput); // tell java to print method output into a specific
-                                         // PrintStream
-
             // titleAndAuthor[0] title; titleAndAuthor[1] author
             this.addBook(title, author);
-
-            System.out.flush(); // clear out all current outputs, ready to put previousOutput back
-            System.setOut(previousOutput); // put old outputs back into the console
           } catch (ArrayIndexOutOfBoundsException e) {
             // skip this line, but print out an error about incorrectly formatted line
             System.out.println(
