@@ -694,8 +694,7 @@ public class ExceptionalLibrary {
         String line = fin.nextLine();
         try {
           if (line.trim().equals("")) {
-            throw new NullPointerException(); // empty line should be directed as null pointers to
-                                              // skip
+            line = fin.nextLine(); // skip current line if empty
           }
 
           String[] titleAndAuthor = line.split(":");
@@ -720,7 +719,9 @@ public class ExceptionalLibrary {
           System.out.flush(); // clear out all current outputs, ready to put previousOutput back
           System.setOut(previousOutput); // put old outputs back into the console
         } catch (NullPointerException e) {
-          // empty, skip this line
+          // skip this line, but print out an error about incorrectly formatted line
+          System.out.println(
+              "Error: Found incorrectly formatted line in file " + commands[1] + ": " + line);
         } catch (ArrayIndexOutOfBoundsException e) {
           // skip this line, but print out an error about incorrectly formatted line
           System.out.println(
