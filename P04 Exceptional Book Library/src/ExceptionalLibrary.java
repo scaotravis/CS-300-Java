@@ -4,7 +4,7 @@
 // Files: "ExceptionalLibrary.java", "ExceptionalBookLibraryTests.java"
 // Course: CS 300, Spring, 2019
 //
-// Author: Travis
+// Author: Travis Cao
 // Email: travis.cao@wisc.edu
 // Lecturer's Name: Gary Dahl
 //
@@ -45,6 +45,7 @@ import java.io.ByteArrayOutputStream;
  * This class models a simple book library. The main method of this class implements the management
  * system for this library.
  *
+ * @author Travis Cao
  */
 public class ExceptionalLibrary {
   // instance fields
@@ -370,7 +371,8 @@ public class ExceptionalLibrary {
     this.parsePhoneNumber(commands[4], 4); // checks if phoneNumber is valid; otherwise throws
                                            // ParseException
 
-    this.addSubscriber(commands[1], pin, commands[3], commands[4]);
+    this.addSubscriber(commands[1], pin, commands[3], commands[4]); // may throw
+                                                                    // InstantiationException
   }
 
   /**

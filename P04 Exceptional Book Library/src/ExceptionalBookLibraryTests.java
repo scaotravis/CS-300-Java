@@ -4,7 +4,7 @@
 // Files: "ExceptionalLibrary.java", "ExceptionalBookLibraryTests.java"
 // Course: CS 300, Spring, 2019
 //
-// Author: Travis
+// Author: Travis Cao
 // Email: travis.cao@wisc.edu
 // Lecturer's Name: Gary Dahl
 //
@@ -36,6 +36,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.text.ParseException;
 
+/**
+ * This class tests methods available for objects of class ExceptionalLibrary. Focus of testing is
+ * Exception handling.
+ * 
+ * @author Travis Cao
+ */
 public class ExceptionalBookLibraryTests {
 
   /**
@@ -53,8 +59,8 @@ public class ExceptionalBookLibraryTests {
                           // thrown
     try {
       // since adding a new subscriber prints something into the console, we uses the following
-      // codes to let the printed line saved in a different PrintStream, so to not interfere with
-      // our test
+      // codes to let the printed line saved in a different PrintStream, so to not affect the
+      // readability of our test
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       PrintStream methodOutput = new PrintStream(baos);
       PrintStream previousOutput = System.out; // save the old system printout into previousOutput
@@ -117,8 +123,8 @@ public class ExceptionalBookLibraryTests {
                           // thrown
     try {
       // since adding a new subscriber prints something into the console, we uses the following
-      // codes to let the printed line saved in a different PrintStream, so to not interfere with
-      // our test
+      // codes to let the printed line saved in a different PrintStream, so to not affect the
+      // readability of our test
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       PrintStream methodOutput = new PrintStream(baos);
       PrintStream previousOutput = System.out; // save the old system printout into previousOutput
@@ -198,8 +204,8 @@ public class ExceptionalBookLibraryTests {
                           // thrown
     try {
       // since adding a new subscriber prints something into the console, we uses the following
-      // codes to let the printed line saved in a different PrintStream, so to not interfere with
-      // our test
+      // codes to let the printed line saved in a different PrintStream, so to not affect the
+      // readability of our test
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       PrintStream methodOutput = new PrintStream(baos);
       PrintStream previousOutput = System.out; // save the old system printout into previousOutput
@@ -264,6 +270,113 @@ public class ExceptionalBookLibraryTests {
     return testPassed;
   }
 
+  /**
+   * Checks that if invalid arguments are passed on to add a subscriber to the library, correct
+   * ParseException or InstantiationException will be thrown.
+   * 
+   * @return true if the test passed, false otherwise
+   */
+  public static boolean testLibraryParseRunLibrarianAddSubscriberCommand() {
+    boolean testPassed = false; // boolean local variable evaluated to true if this test passed,
+                                // false otherwise
+    boolean test1 = false; // boolean for each small test; initialized to false
+    boolean test2 = false;
+    boolean test3 = false;
+    boolean test4 = false;
+    boolean test5 = false;
+
+    // since adding a new subscriber prints something into the console, we uses the following
+    // codes to let the printed line saved in a different PrintStream, so to not affect the
+    // readability of our test
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    PrintStream methodOutput = new PrintStream(baos);
+    PrintStream previousOutput = System.out; // save the old system printout into previousOutput
+    System.setOut(methodOutput); // tell java to print method output into a specific PrintStream
+
+    // calls methods
+    ExceptionalLibrary library = new ExceptionalLibrary("Madison", "Adam", "1111");
+
+    try { // this should be correctly parsed and create subscriber Amy
+      library.parseRunLibrarianAddSubscriberCommand(
+          new String[] {"2", "Amy", "1234", "Address", "1234567890"});
+      test1 = true;
+    } catch (ParseException e) {
+      test1 = false;
+    } catch (InstantiationException e) {
+      test1 = false;
+    }
+
+    try { // if the argument counts are incorrect
+      library.parseRunLibrarianAddSubscriberCommand(new String[] {"2", "Sam", "1224", "Address"});
+    } catch (ParseException e) {
+      test2 = true; // should throw ParseException
+    } catch (InstantiationException e) {
+      test2 = false;
+    }
+
+    try { // if the pin cannot be correctly parsed
+      library.parseRunLibrarianAddSubscriberCommand(
+          new String[] {"2", "Bob", "1", "Address", "715331231"});
+    } catch (ParseException e) {
+      test3 = true; // should throw ParseException
+    } catch (InstantiationException e) {
+      test3 = false;
+    }
+
+    try { // if the phone number cannot be correctly parsed
+      library.parseRunLibrarianAddSubscriberCommand(
+          new String[] {"2", "Bob", "1213", "Address", "kjadga"});
+    } catch (ParseException e) {
+      test4 = true; // should throw ParseException
+    } catch (InstantiationException e) {
+      test4 = false;
+    }
+
+    try { // if way too many subscribers have already been created (i.e. more than 999999)
+      for (int i = 0; i < 1000001; i++) {
+        library.parseRunLibrarianAddSubscriberCommand(
+            new String[] {"2", "Amy", "1234", "Address", "1234567890"});
+      }
+    } catch (ParseException e) {
+      test5 = false;
+    } catch (InstantiationException e) {
+      test5 = true; // should throw InstantiationException since no more subscriber can be created
+    }
+
+    System.out.flush(); // clear out all current outputs, ready to put previousOutput back
+    System.setOut(previousOutput); // put old outputs back into the console
+
+    if (test1 == false) {
+      System.out.println("Problem detected: using correct arguments, a subscriber should be created"
+          + ". But, it was not the case.");
+    }
+
+    if (test2 == false) {
+      System.out.println("Problem detected: if argument count to add a new subscriber is incorrect"
+          + ", a ParseException should be thrown. But, it was not the case.");
+    }
+
+    if (test3 == false) {
+      System.out.println("Problem detected: if the pin code cannot be correctly parsed, a "
+          + "ParseException should be thrown. But, it was not the case.");
+    }
+
+    if (test4 == false) {
+      System.out.println("Problem detected: if the phone number cannot be correctly parsed, a "
+          + "ParseException should be thrown. But, it was not the case.");
+    }
+
+    if (test5 == false) {
+      System.out.println("Problem detected: if subscribers created exceeded the max limit (999999)"
+          + ", an InstantiationException should be thrown. But, it was not the case.");
+    }
+
+    if (test1 == true && test2 == true && test3 == true && test4 == true && test5 == true) {
+      testPassed = true;
+    }
+
+    return testPassed;
+  }
 
   public static void main(String[] args) {
     System.out.println("===TESTS BEGIN===" + System.lineSeparator());
@@ -273,6 +386,8 @@ public class ExceptionalBookLibraryTests {
         + testLibraryParseRunLibrarianCheckoutBookCommand() + System.lineSeparator());
     System.out.println("testLibraryParseRunSubscriberReturnBookCommand(): "
         + testLibraryParseRunSubscriberReturnBookCommand() + System.lineSeparator());
+    System.out.println("testLibraryParseRunLibrarianAddSubscriberCommand(): "
+        + testLibraryParseRunLibrarianAddSubscriberCommand() + System.lineSeparator());
     System.out.println("===TESTS COMPLETES===");
   }
 
