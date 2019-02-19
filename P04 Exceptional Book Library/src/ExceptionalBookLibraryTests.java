@@ -465,6 +465,8 @@ public class ExceptionalBookLibraryTests {
 
   public static void main(String[] args) {
     System.out.println("===TESTS BEGIN===" + System.lineSeparator());
+    System.out.println("testSubscriberParseRunSubscriberUpdatePhoneNumberCommand(): "
+        + testSubscriberParseRunSubscriberUpdatePhoneNumberCommand() + System.lineSeparator());
     System.out.println(
         "testLibraryParseCardBarCode(): " + testLibraryParseCardBarCode() + System.lineSeparator());
     System.out.println("testLibraryParseRunLibrarianCheckoutBookCommand(): "
@@ -473,8 +475,6 @@ public class ExceptionalBookLibraryTests {
         + testLibraryParseRunSubscriberReturnBookCommand() + System.lineSeparator());
     System.out.println("testLibraryParseRunLibrarianAddSubscriberCommand(): "
         + testLibraryParseRunLibrarianAddSubscriberCommand() + System.lineSeparator());
-    System.out.println("testSubscriberParseRunSubscriberUpdatePhoneNumberCommand(): "
-        + testSubscriberParseRunSubscriberUpdatePhoneNumberCommand() + System.lineSeparator());
     System.out.println("===TESTS COMPLETES===");
   }
 
