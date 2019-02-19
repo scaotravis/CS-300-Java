@@ -34,12 +34,10 @@
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.ByteArrayOutputStream;
 
 /**
  * This class models a simple book library. The main method of this class implements the management

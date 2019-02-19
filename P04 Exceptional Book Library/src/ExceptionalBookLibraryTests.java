@@ -122,9 +122,9 @@ public class ExceptionalBookLibraryTests {
     boolean test4 = true; // check constructor; only changes to false when InstantiationException is
                           // thrown
     try {
-      // since adding a new subscriber prints something into the console, we uses the following
-      // codes to let the printed line saved in a different PrintStream, so to not affect the
-      // readability of our test
+      // since adding a new subscriber or a book prints something into the console, we uses the
+      // following codes to let the printed line saved in a different PrintStream, so to not affect
+      // the readability of our test
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       PrintStream methodOutput = new PrintStream(baos);
       PrintStream previousOutput = System.out; // save the old system printout into previousOutput
@@ -378,6 +378,91 @@ public class ExceptionalBookLibraryTests {
     return testPassed;
   }
 
+  /**
+   * Checks that if invalid arguments are passed on to update phone number in a Subscriber's
+   * interface, a ParseException will be thrown.
+   * 
+   * @return true if the test passed, false otherwise
+   */
+  public static boolean testSubscriberParseRunSubscriberUpdatePhoneNumberCommand() {
+    boolean testPassed = false; // boolean local variable evaluated to true if this test passed,
+                                // false otherwise
+    boolean test1 = false; // boolean for each small test; initialized to false
+    boolean test2 = false;
+    boolean test3 = false;
+    boolean test4 = false;
+
+    // since adding a new subscriber prints something into the console, we uses the following
+    // codes to let the printed line saved in a different PrintStream, so to not affect the
+    // readability of our test
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    PrintStream methodOutput = new PrintStream(baos);
+    PrintStream previousOutput = System.out; // save the old system printout into previousOutput
+    System.setOut(methodOutput); // tell java to print method output into a specific PrintStream
+
+    // calls methods
+    try {
+
+      ExceptionalLibrary library = new ExceptionalLibrary("Madison, WI", "april", "abc");
+      library.addSubscriber("Amy", 1234, "Address", "1234567890");
+      test1 = true; // make sure that the constructor does not throw an InstantiationException when
+                    // arguments are correct
+
+      Subscriber subscriber = library.findSubscriber(2019000001);
+
+      try { // update phone number, with correct int argument
+        library.parseRunSubscriberUpdatePhoneNumberCommand(new String[] {"8", "12131"}, subscriber);
+        test2 = true; // no ParseException should be thrown when the arguments provided are correct
+      } catch (ParseException e) {
+        test2 = false;
+      }
+
+      try { // update phone number, with incorrect arguments count
+        library.parseRunSubscriberUpdatePhoneNumberCommand(new String[] {"8"}, subscriber);
+      } catch (ParseException e) {
+        test3 = true; // a ParseException should be thrown due to invalid argument count
+      }
+
+      try { // update phone number, with phoneNumber argument not being numbers
+        library.parseRunSubscriberUpdatePhoneNumberCommand(new String[] {"8", "jvhdk"}, subscriber);
+      } catch (ParseException e) {
+        test4 = true; // a ParseException should be thrown due to phoneNumber not being int
+      }
+
+    } catch (InstantiationException e) {
+      test1 = false;
+    }
+
+    System.out.flush(); // clear out all current outputs, ready to put previousOutput back
+    System.setOut(previousOutput); // put old outputs back into the console
+
+    if (test1 == false) {
+      System.out.println("Problem detected: when inputting the correct arguments, an "
+          + "InstantiationException should not be thrown. But, it was not the case.");
+    }
+
+    if (test2 == false) {
+      System.out.println("Problem detected: when updating phone number with the correct object type"
+          + ", a ParseException should not be thrown. But, it was not the case.");
+    }
+
+    if (test3 == false) {
+      System.out.println("Problem detected: when updating phone number with incorrect amount of "
+          + "argument counts, a ParseException should be thrown. But, it was not the case.");
+    }
+
+    if (test4 == false) {
+      System.out.println("Problem detected: when updating phone number with non-number arguments, "
+          + "a ParseException should be thrown. But, it was not the case.");
+    }
+
+    if (test1 == true && test2 == true && test3 == true && test4 == true) {
+      testPassed = true;
+    }
+
+    return testPassed;
+  }
+
   public static void main(String[] args) {
     System.out.println("===TESTS BEGIN===" + System.lineSeparator());
     System.out.println(
@@ -388,6 +473,8 @@ public class ExceptionalBookLibraryTests {
         + testLibraryParseRunSubscriberReturnBookCommand() + System.lineSeparator());
     System.out.println("testLibraryParseRunLibrarianAddSubscriberCommand(): "
         + testLibraryParseRunLibrarianAddSubscriberCommand() + System.lineSeparator());
+    System.out.println("testSubscriberParseRunSubscriberUpdatePhoneNumberCommand(): "
+        + testSubscriberParseRunSubscriberUpdatePhoneNumberCommand() + System.lineSeparator());
     System.out.println("===TESTS COMPLETES===");
   }
 
