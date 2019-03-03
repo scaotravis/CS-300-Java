@@ -69,7 +69,6 @@ public class ClickableThing extends VisibleThing {
    * Calls VisibleThing update, then returns action only when mouse is first clicked on the
    * clickable thing
    */
-  @Override
   public Action update() {
     super.update();
     PApplet papplet = getProcessing();

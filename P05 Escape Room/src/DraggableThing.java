@@ -72,7 +72,6 @@ public class DraggableThing extends VisibleThing {
    * from true to false, the drop() method below will be called once and any action objects returned
    * from that method should then be returned from update()
    */
-  @Override
   public Action update() {
     super.update();
     PApplet papplet = getProcessing();

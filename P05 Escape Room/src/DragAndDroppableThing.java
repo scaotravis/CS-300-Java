@@ -71,7 +71,6 @@ public class DragAndDroppableThing extends DraggableThing {
    * its target and its target is active: deactivate both this object and the target object, and
    * return action; otherwise, return null
    */
-  @Override
   protected Action drop() {
     if (target.isActive() && this.isOver(target)) {
       this.deactivate();

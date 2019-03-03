@@ -62,7 +62,6 @@ public class VisibleThing extends Thing {
    * 
    * Draws image at its position before returning null
    */
-  @Override
   public Action update() {
     getProcessing().image(image, x, y);
     return null; 

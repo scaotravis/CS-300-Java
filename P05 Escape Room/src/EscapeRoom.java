@@ -188,7 +188,6 @@ public class EscapeRoom extends PApplet {
    * 
    * @see processing.core.PApplet#settings()
    */
-  @Override
   public void settings() {
     size(800, 600);
   }
@@ -198,7 +197,6 @@ public class EscapeRoom extends PApplet {
    * 
    * @see processing.core.PApplet#setup()
    */
-  @Override
   public void setup() {
     Thing.setProcessing(this);
     allThings = new ArrayList<Thing>();
@@ -210,9 +208,8 @@ public class EscapeRoom extends PApplet {
    * 
    * @see processing.core.PApplet#draw()
    */
-  @Override
   public void draw() {
-    super.image(backgroundImage, 0f, 0f);
+    Thing.getProcessing().image(backgroundImage, 0, 0);
 
     // Calls update method on every element in allThings, then acts on each returned Action object
     // that is non-null
@@ -221,8 +218,10 @@ public class EscapeRoom extends PApplet {
       if (action != null) {
         action.act(allThings);
       }
+    }
 
-      // Removes all deactivated objects from the allThings array list
+    // Removes all deactivated objects from the allThings array list
+    for (int i = 0; i < allThings.size(); i++) {
       if (allThings.get(i).isActive() == false) {
         allThings.remove(i);
       }
