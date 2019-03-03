@@ -1,7 +1,7 @@
 import processing.core.PApplet;
 
 /**
- * Organize the capabilities that are common to all interactive things in Escape Room game
+ * Organizes the capabilities that are common to all interactive things in Escape Room game
  * 
  * @author Travis Cao
  */
@@ -73,7 +73,7 @@ public class Thing {
    * @param processing PApplet static field to initialize
    */
   public static void setProcessing(PApplet processing) {
-    processing = new PApplet(); 
+    Thing.processing = processing; 
   }
 
   /**

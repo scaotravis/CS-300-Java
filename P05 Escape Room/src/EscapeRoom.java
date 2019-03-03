@@ -12,18 +12,35 @@ public class EscapeRoom extends PApplet {
   private PImage backgroundImage;
   private ArrayList<Thing> allThings;
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see processing.core.PApplet#settings()
+   */
   @Override
   public void settings() {
     size(800, 600);
   }
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see processing.core.PApplet#setup()
+   */
   @Override
   public void setup() {
     Thing.setProcessing(this);
     allThings = new ArrayList<Thing>();
     backgroundImage = super.loadImage("images/computerCenter.png");
+
+    allThings.add(new ClickableThing("koala", 350, 65, new Action("What a cute stuffed koala!")));
   }
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see processing.core.PApplet#draw()
+   */
   @Override
   public void draw() {
     super.image(backgroundImage, 0f, 0f);

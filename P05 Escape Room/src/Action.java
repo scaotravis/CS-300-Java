@@ -1,6 +1,6 @@
 
 /**
- * Action represents the response to an object being clicked or dragged onto another
+ * Represents the response to an object being clicked or dragged onto another
  * 
  * @author Travis Cao
  */
