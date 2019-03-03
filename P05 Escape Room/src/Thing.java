@@ -58,8 +58,8 @@ public class Thing {
   }
 
   /**
-   * This method returns null in all cases. Subclass types will override this update() method to do
-   * more interesting things
+   * This method returns null. Subclass types will override this update() method to do more
+   * interesting things
    * 
    * @return null
    */
@@ -73,7 +73,7 @@ public class Thing {
    * @param processing PApplet static field to initialize
    */
   public static void setProcessing(PApplet processing) {
-    Thing.processing = processing; 
+    Thing.processing = processing;
   }
 
   /**
@@ -82,7 +82,7 @@ public class Thing {
    * @return Static field processing of type PApplet
    */
   protected static PApplet getProcessing() {
-    return processing; 
+    return processing;
   }
-  
+
 }

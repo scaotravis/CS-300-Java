@@ -1,7 +1,7 @@
 import processing.core.PApplet;
 
 /**
- * Represents objects that are interactable through clicking
+ * Represents objects that can be interacted through clicking
  * 
  * @author Travis Cao
  */

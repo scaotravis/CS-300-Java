@@ -34,6 +34,7 @@ public class EscapeRoom extends PApplet {
     backgroundImage = super.loadImage("images/computerCenter.png");
 
     allThings.add(new ClickableThing("koala", 350, 65, new Action("What a cute stuffed koala!")));
+    allThings.add(new DraggableThing("key", 250, 170)); 
   }
 
   /*
