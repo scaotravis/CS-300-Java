@@ -68,7 +68,7 @@ public class DraggableThing extends VisibleThing {
    * 
    * @see VisibleThing#update()
    * 
-   * calls VisibleThing update(), then moves according to mouse drag. Each time isDragging changes
+   * Calls VisibleThing update(), then moves according to mouse drag. Each time isDragging changes
    * from true to false, the drop() method below will be called once and any action objects returned
    * from that method should then be returned from update()
    */
@@ -77,16 +77,17 @@ public class DraggableThing extends VisibleThing {
     PApplet papplet = getProcessing();
 
     this.mouseWasPressed = false; // initializes as mouse not being pressed
-    
+
     if (this.mouseWasPressed == false) {
       if (papplet.mousePressed == true) {
-        this.mouseWasPressed = true; 
+        this.mouseWasPressed = true;
         if (isOver(papplet.mouseX, papplet.mouseY) == true) {
-          this.isDragging = true; 
+          this.isDragging = true; // object is being dragged when mouse is pressed over the object
+                                  // and it wasn't pressed before
         }
       } else {
-        this.isDragging = false; 
-        this.mouseWasPressed = false; 
+        this.isDragging = false;
+        this.mouseWasPressed = false;
       }
     }
 
@@ -104,8 +105,8 @@ public class DraggableThing extends VisibleThing {
   }
 
   /**
-   * This method returns null. Subclass types will override this drop() method to do more
-   * interesting things
+   * This method returns null. Subclass of DraggableThing will override this drop() method to do
+   * more interesting things
    * 
    * @return null
    */

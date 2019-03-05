@@ -49,22 +49,31 @@ public class VisibleThing extends Thing {
   private int y; // the vertical position (in pixels of this thing's top side)
 
   // Constructor
+  /**
+   * Initializes a new VisibleThing object
+   * 
+   * @param name name of the object
+   * @param x    the horizontal position
+   * @param y    the vertical position
+   */
   public VisibleThing(String name, int x, int y) {
     super(name);
-    this.image = getProcessing().loadImage("images" + File.separator + name + ".png"); 
-    this.x = x; 
-    this.y = y; 
+    this.image = getProcessing().loadImage("images" + File.separator + name + ".png");
+    this.x = x;
+    this.y = y;
   }
 
   // Methods
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see Thing#update()
    * 
    * Draws image at its position before returning null
    */
   public Action update() {
     getProcessing().image(image, x, y);
-    return null; 
+    return null;
   }
 
   /**
@@ -74,8 +83,8 @@ public class VisibleThing extends Thing {
    * @param dy Increment to add on y image position
    */
   public void move(int dx, int dy) {
-    this.x += dx; 
-    this.y += dy; 
+    this.x += dx;
+    this.y += dy;
   }
 
   /**
@@ -86,22 +95,22 @@ public class VisibleThing extends Thing {
    * @return true only when point (x, y) is over image
    */
   public boolean isOver(int x, int y) {
-    int width = this.image.width; 
-    int height = this.image.height; 
-    
-    boolean pointIsOver = true; 
-    
+    int width = this.image.width;
+    int height = this.image.height;
+
+    boolean pointIsOver = true;
+
     // point is outside if it is to the left or right of the image
     if (x < this.x || this.x + width < x) {
-      pointIsOver = false; 
+      pointIsOver = false;
     }
-    
+
     // point is outside if it is higher or lower than the image
     if (y < this.y || this.y + height < y) {
-      pointIsOver = false; 
+      pointIsOver = false;
     }
-    
-    return pointIsOver; 
+
+    return pointIsOver;
   }
 
   /**
@@ -111,25 +120,24 @@ public class VisibleThing extends Thing {
    * @return true only when another VisibleThing image overlaps with the current one
    */
   public boolean isOver(VisibleThing other) {
-    int thisWidth = this.image.width; 
-    int thisHeight = this.image.height; 
-    int otherWidth = other.image.width; 
-    int otherHeight = other.image.height; 
-    
-    boolean otherIsOver = true; 
-    
+    int thisWidth = this.image.width;
+    int thisHeight = this.image.height;
+    int otherWidth = other.image.width;
+    int otherHeight = other.image.height;
+
+    boolean otherIsOver = true;
+
     // if one image is on the left side of the other, then it is not over
     if (this.x + thisWidth < other.x || other.x + otherWidth < this.x) {
-      otherIsOver = false; 
+      otherIsOver = false;
     }
-    
+
     // if one image is above the other, then it is not over
     if (this.y + thisHeight < other.y || other.y + otherHeight < this.y) {
-      otherIsOver = false; 
+      otherIsOver = false;
     }
-    
-    return otherIsOver; 
-  }
 
+    return otherIsOver;
+  }
 
 }

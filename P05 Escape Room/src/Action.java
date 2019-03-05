@@ -46,7 +46,7 @@ public class Action {
   private String message; // message printed by this action (or null to do nothing)
   private Thing thing;
 
-  // Constructor
+  // Constructors
   /**
    * Initializes a new Action object with a message
    * 
@@ -62,7 +62,7 @@ public class Action {
    * @param thing A Thing object to activate
    */
   public Action(Thing thing) {
-    this.thing = thing; 
+    this.thing = thing;
   }
 
   /**
@@ -72,21 +72,23 @@ public class Action {
    * @param thing   A Thing object to activate
    */
   public Action(String message, Thing thing) {
-    this.message = message; 
-    this.thing = thing; 
+    this.message = message;
+    this.thing = thing;
   }
 
   // Methods
   /**
-   * When message is not null, message is printed to System.out
+   * When message is not null, message is printed to System.out. When the thing object is not null,
+   * it will activate the thing and add it to the ArrayList of type Thing, then sets the instance
+   * field thing back to null.
    */
   public void act(ArrayList<Thing> thingList) {
     if (this.thing != null) {
       this.thing.activate();
-      thingList.add(this.thing); 
-      this.thing = null; 
+      thingList.add(this.thing);
+      this.thing = null;
     }
-    
+
     if (this.message != null) {
       System.out.println(this.message);
     }

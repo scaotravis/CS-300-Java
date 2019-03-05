@@ -94,7 +94,7 @@ public class Thing {
   }
 
   /**
-   * This method returns null. Subclass types will override this update() method to do more
+   * This method returns null. Subclass of Thing will override this update() method to do more
    * interesting things
    * 
    * @return null

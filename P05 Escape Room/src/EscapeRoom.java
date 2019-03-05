@@ -187,6 +187,8 @@ public class EscapeRoom extends PApplet {
    * (non-Javadoc)
    * 
    * @see processing.core.PApplet#settings()
+   * 
+   * Sets up the size of the EscapeRoom application window
    */
   public void settings() {
     size(800, 600);
@@ -196,6 +198,8 @@ public class EscapeRoom extends PApplet {
    * (non-Javadoc)
    * 
    * @see processing.core.PApplet#setup()
+   * 
+   * Sets up the EscapeRoom application
    */
   public void setup() {
     Thing.setProcessing(this);
@@ -207,6 +211,8 @@ public class EscapeRoom extends PApplet {
    * (non-Javadoc)
    * 
    * @see processing.core.PApplet#draw()
+   * 
+   * Repeatedly runs the following until EscapeRoom application is terminated
    */
   public void draw() {
     Thing.getProcessing().image(backgroundImage, 0, 0);
