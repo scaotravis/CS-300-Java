@@ -30,7 +30,7 @@ public class Box implements Comparable<Box> {
   public Box(int color, int weight) {
     this.color = color;
     if (weight < 1 || weight > 30) {
-      throw new IllegalArgumentException("Box weight has to be in between 1 and 30 (inclusive)");
+      throw new IllegalArgumentException("WARNING: Box Weight Not Between 1 and 30!");
     }
     this.weight = weight;
   }

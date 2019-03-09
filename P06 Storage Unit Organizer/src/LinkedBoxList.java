@@ -80,12 +80,11 @@ public class LinkedBoxList {
    */
   public void add(Box newBox) throws IllegalArgumentException, IllegalStateException {
     if (newBox == null) {
-      throw new IllegalArgumentException(
-          "The newBox object trying to be added to the LinkedBoxListis is null");
+      throw new IllegalArgumentException("WARNING: Create a Box First!");
     }
 
     if (this.isFull()) {
-      throw new IllegalStateException("LinkedBoxList is full.");
+      throw new IllegalStateException("WARNING: Storage List Full!");
     }
 
     boolean boxAdded = false; // keeps track of whether the newBox has been added to the list
@@ -99,7 +98,7 @@ public class LinkedBoxList {
       boxAdded = true;
     } else {
       // 2. If needed to be inserted before head
-      if (newBox.compareTo(searchNode.getBox()) >= 0) {
+      if (newBox.compareTo(searchNode.getBox()) > 0) {
         nodeToInsert.setNext(searchNode);
         this.head = nodeToInsert;
         boxAdded = true;
@@ -107,8 +106,8 @@ public class LinkedBoxList {
         // 3. Insert between two nodes
         while (searchNode.getNext() != null) {
           if (searchNode.getBox().compareTo(newBox) >= 0 // current node is heavier than newBox...
-              && searchNode.getNext().getBox().compareTo(newBox) <= 0) { // ...while next node is
-                                                                         // lighter than newBox
+              && newBox.compareTo(searchNode.getNext().getBox()) > 0) { // ...while next node is
+                                                                        // lighter than newBox
             nodeToInsert.setNext(searchNode.getNext());
             searchNode.setNext(nodeToInsert);
             boxAdded = true;
@@ -159,7 +158,7 @@ public class LinkedBoxList {
    */
   public Box get(int index) throws IndexOutOfBoundsException {
     if (index < 0 || index > this.size - 1) {
-      throw new IndexOutOfBoundsException("Index provided is invalid");
+      throw new IndexOutOfBoundsException("WARNING: Index Invalid!");
     }
 
     LinkedBoxNode searchNode = this.head;
@@ -179,7 +178,7 @@ public class LinkedBoxList {
    */
   public Box remove(int index) throws IndexOutOfBoundsException {
     if (index < 0 || index > this.size - 1) {
-      throw new IndexOutOfBoundsException("Index provided is invalid");
+      throw new IndexOutOfBoundsException("WARNING: Index Invalid!");
     }
 
     LinkedBoxNode searchNode = this.head;
