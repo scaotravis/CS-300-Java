@@ -36,13 +36,11 @@ public class Box implements Comparable<Box> {
   }
 
   // Methods
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#equals(java.lang.Object)
-   * 
+  /**
    * Returns true if the specified other object is a Box and this box and other have the same color
    * and same weight. Otherwise, it returns false.
+   * 
+   * @return true if this box has the same weight and color as other box, false otherwise
    */
   public boolean equals(Object other) {
     boolean equality = false;
@@ -57,13 +55,12 @@ public class Box implements Comparable<Box> {
     return equality;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Comparable#compareTo(java.lang.Object)
-   * 
+  /**
    * Returns a negative integer, a positive integer, or zero as this box is lighter than, heavier
    * than, or has the same weight as the specified otherBox.
+   * 
+   * @return 0 if this box has the same weight as the specified otherBox; 1 if this box is heavier;
+   *         -1 if this box is lighter
    */
   public int compareTo(Box o) {
     int comparing = 0;

@@ -18,6 +18,10 @@ public class StorageUnitTests {
     System.out.println("testBoxCompareTo(): " + testBoxCompareTo() + System.lineSeparator());
     System.out.println(
         "testLinkedBoxNodeCreation(): " + testLinkedBoxNodeCreation() + System.lineSeparator());
+    System.out
+        .println("testLinkedBoxListAdd(): " + testLinkedBoxListAdd() + System.lineSeparator());
+    System.out.println(
+        "testLinkedBoxListRemove(): " + testLinkedBoxListRemove() + System.lineSeparator());
     System.out.println("=== TESTING CONCLUDES ===");
   }
 
@@ -93,6 +97,89 @@ public class StorageUnitTests {
     } else {
       System.out.println(
           "Problem detected: getters of LinkedBoxNode class are not functioning correctly.");
+    }
+
+    return testPassed;
+  }
+
+  /**
+   * Checks whether add method defined in LinkedBoxList class works correctly
+   * 
+   * @return true if the test passed, false otherwise
+   */
+  public static boolean testLinkedBoxListAdd() {
+    boolean testPassed = false;
+    boolean test1 = false; // sub-test 1 for checking IllegalStateException
+    boolean test2 = false; // sub-test 2 for checking IllegalArgumentException
+    boolean test3 = false; // check the sorting of Box objects in the LinkedBoxList
+
+    LinkedBoxList list = new LinkedBoxList(3);
+    list.add(new Box(1, 4));
+    list.add(new Box(3, 2));
+    list.add(new Box(5, 8));
+
+    try {
+      list.add(new Box(7, 8));
+    } catch (IllegalStateException e) {
+      test1 = true;
+    }
+
+    if (test1 == false) {
+      System.out.println("Problem detected: when adding a box beyond capacity, an "
+          + "IllegalStateException should be thrown. But, it was not the case.");
+    }
+
+    try {
+      list.add(null);
+    } catch (IllegalArgumentException e) {
+      test2 = true;
+    }
+
+    if (test2 == false) {
+      System.out.println("Problem detected: when adding a box that is null, an "
+          + "IllegalArgumentException should be thrown. But, it was not the case.");
+    }
+
+    // check that Box objects in the LinkedBoxList are now sorted from the heaviest to the lightest
+    if (list.get(0).equals(new Box(5, 8)) && list.get(1).equals(new Box(1, 4))
+        && list.get(2).equals(new Box(3, 2))) {
+      test3 = true;
+    } else {
+      System.out.println("Problem detected: after adding Box objects, all boxes should be sorted "
+          + "in a descending order based on weights. But, it was not the case.");
+    }
+
+    if (test1 == true && test2 == true && test3 == true) {
+      testPassed = true;
+    }
+
+    return testPassed;
+  }
+
+  /**
+   * Checks whether remove method defined in LinkedBoxList class works correctly
+   * 
+   * @return true if the test passed, false otherwise
+   */
+  public static boolean testLinkedBoxListRemove() {
+    boolean testPassed = false;
+
+    LinkedBoxList list = new LinkedBoxList(3);
+    list.add(new Box(1, 4));
+    list.add(new Box(3, 2));
+    list.add(new Box(5, 8));
+    list.remove(1);
+
+    if (list.size() == 2) {
+      if (list.get(0).equals(new Box(5, 8)) && list.get(1).equals(new Box(3, 2))) {
+        testPassed = true;
+      } else {
+        System.out.println("Problem detected: the remove() method is not removing nodes from "
+            + "a LinkedBoxList.");
+      }
+    } else {
+      System.out.println("Problem detected: after removing one node from a LinkedBoxList with "
+          + "3 nodes, the size of the list should be reduced to 2. But, it was not the case.");
     }
 
     return testPassed;
