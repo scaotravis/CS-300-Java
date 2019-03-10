@@ -75,13 +75,14 @@ public class Box implements Comparable<Box> {
    * Returns true if the specified other object is a Box and this box and other have the same color
    * and same weight. Otherwise, it returns false.
    * 
+   * @param other A different object to compare equality with
    * @return true if this box has the same weight and color as other box, false otherwise
    */
   public boolean equals(Object other) {
     boolean equality = false;
 
     if (other instanceof Box) {
-      Box otherBox = (Box) other;
+      Box otherBox = (Box) other; // downcast to a Box object
       if (this.color == otherBox.getColor() && this.weight == otherBox.getWeight()) {
         equality = true;
       }
@@ -94,6 +95,7 @@ public class Box implements Comparable<Box> {
    * Returns a negative integer, a positive integer, or zero as this box is lighter than, heavier
    * than, or has the same weight as the specified otherBox.
    * 
+   * @param o A different Box object to compare with
    * @return 0 if this box has the same weight as the specified otherBox; 1 if this box is heavier;
    *         -1 if this box is lighter
    */
