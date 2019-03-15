@@ -95,7 +95,7 @@ public class StorageUnitTests {
     Box box2 = new Box(3276, 12);
     Box box3 = new Box(28, 12);
 
-    if (box1.compareTo(box2) == 1 && box2.compareTo(box3) == 0 && box3.compareTo(box1) == -1) {
+    if (box1.compareTo(box2) > 0 && box2.compareTo(box3) == 0 && box3.compareTo(box1) < 0) {
       testPassed = true;
     }
 
