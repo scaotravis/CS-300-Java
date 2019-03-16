@@ -1,3 +1,4 @@
+import java.util.function.Function;
 
 /**
  * A class that hosts all testing methods of P07: Iterating to Philosophy
@@ -14,6 +15,7 @@ public class TestDriver {
   public static void main(String[] args) {
     System.out.println("=== BEGIN TESTING ===" + System.lineSeparator());
     System.out.println("testEvenNumbers(): " + testEvenNumbers() + System.lineSeparator());
+    System.out.println("testPowersOfTwo(): " + testPowersOfTwo() + System.lineSeparator());
     System.out.println("=== TESTING COMPLETES ===");
   }
 
@@ -44,4 +46,49 @@ public class TestDriver {
     return true;
   }
 
+  /**
+   * Checks that a NextPowerOfTwo class function paired with an InfiniteIterator object is correctly
+   * returning an infinite sequence of numbers based on the NextPowerOfTwo function
+   * 
+   * @return true if test passed, false otherwise
+   */
+  public static boolean testPowersOfTwo() {
+    InfiniteIterator it = new InfiniteIterator(8, new NextPowerOfTwo());
+    if (it.next() != 8) {
+      System.out.println("The first call of InfiniteIterator.next() "
+          + "did not return the number passed into its constructor.");
+      return false;
+    }
+    if (it.next() != 16) {
+      System.out.println("The second call of InfiniteIterator.next() "
+          + "did not return the smallest power of two number, "
+          + "that is larger than the previously returned number.");
+      return false;
+    }
+    if (it.hasNext() != true) {
+      System.out
+          .println("InfiniteIterator.next() returned false, " + "but should always return true.");
+      return false;
+    }
+    return true;
+  }
+
+}
+
+
+/**
+ * Generates integers that double in value
+ * 
+ * @author Travis Cao
+ */
+class NextPowerOfTwo implements Function<Integer, Integer> {
+  /**
+   * Doubles an integer value
+   * 
+   * @param previous An interger that has been returned previously and waiting to be doubled
+   * @return An integer that is twice the size of its input
+   */
+  public Integer apply(Integer previous) {
+    return 2 * previous;
+  }
 }
