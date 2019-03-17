@@ -7,7 +7,8 @@ import java.util.Iterator;
  */
 public class EvenNumbers implements Iterator<Integer> {
 
-  private Integer number;
+  private Integer number; // originally records the first number of the sequence; replaced with
+                          // iterated values as the sequence grows
   private boolean firstCall = true; // keep track of whether this is the first call
 
   // Constructor

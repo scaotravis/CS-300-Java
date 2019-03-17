@@ -18,6 +18,7 @@ public class TestDriver {
     System.out.println("testPowersOfTwo(): " + testPowersOfTwo() + System.lineSeparator());
     System.out.println("testAddExtraSmile(): " + testAddExtraSmile() + System.lineSeparator());
     System.out.println("testFiniteIterator(): " + testFiniteIterator() + System.lineSeparator());
+    System.out.println("testGenerator(): " + testGenerator() + System.lineSeparator());
     System.out.println("=== TESTING COMPLETES ===");
   }
 
@@ -117,6 +118,25 @@ public class TestDriver {
     if (!s.equals(" 2 4 8 16 32 64 128 256")) {
       System.out.println("Repeatedly called the next() method of a FiniteIterator,"
           + "and the incorrect valuese were returned:" + s);
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Checks that an object of class Generator is iterable
+   * 
+   * @return true if test passed, false otherwise
+   */
+  public static boolean testGenerator() {
+    Generator<Integer> gen = new Generator<>(3, new NextPowerOfTwo(), 7);
+    String s = "";
+    for (Integer num : gen) {
+      s += " " + num.intValue();
+    }
+    if (!s.equals(" 3 6 12 24 48 96 192")) {
+      System.out.println("Iterated through an Iterable object using a for-each loop, "
+          + "and incorrect values were returned: " + s);
       return false;
     }
     return true;

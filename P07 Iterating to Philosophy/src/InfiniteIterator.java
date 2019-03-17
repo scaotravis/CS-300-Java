@@ -8,8 +8,9 @@ import java.util.function.Function;
  */
 public class InfiniteIterator<T> implements Iterator<T> {
 
-  private T t;
-  private Function<T, T> generatingFunction;
+  private T t; // originally records the first object of the sequence; replaced with iterated values
+               // as the sequence grows
+  private Function<T, T> generatingFunction; // function that defines how the object iterates
   private boolean firstCall = true; // keep track of whether this is the first call
 
   // Constructor
