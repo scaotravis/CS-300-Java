@@ -16,6 +16,8 @@ public class TestDriver {
     System.out.println("=== BEGIN TESTING ===" + System.lineSeparator());
     System.out.println("testEvenNumbers(): " + testEvenNumbers() + System.lineSeparator());
     System.out.println("testPowersOfTwo(): " + testPowersOfTwo() + System.lineSeparator());
+    System.out.println("testAddExtraSmile(): " + testAddExtraSmile() + System.lineSeparator());
+    System.out.println("testFiniteIterator(): " + testFiniteIterator() + System.lineSeparator());
     System.out.println("=== TESTING COMPLETES ===");
   }
 
@@ -53,7 +55,7 @@ public class TestDriver {
    * @return true if test passed, false otherwise
    */
   public static boolean testPowersOfTwo() {
-    InfiniteIterator it = new InfiniteIterator(8, new NextPowerOfTwo());
+    InfiniteIterator<Integer> it = new InfiniteIterator<>(8, new NextPowerOfTwo());
     if (it.next() != 8) {
       System.out.println("The first call of InfiniteIterator.next() "
           + "did not return the number passed into its constructor.");
@@ -73,6 +75,53 @@ public class TestDriver {
     return true;
   }
 
+  /**
+   * Checks that the InfiniteIterator class objects have been generalized to be applied on String
+   * objects
+   * 
+   * @return true if test passed, false otherwise
+   */
+  public static boolean testAddExtraSmile() {
+    InfiniteIterator<String> it = new InfiniteIterator<>("Hello", new AddExtraSmile());
+    if (!it.next().equals("Hello")) {
+      System.out.println("The first call of InfiniteIterator.next() "
+          + "did not return the string passed into its constructor.");
+      return false;
+    }
+    if (!it.next().contains(" :)")) {
+      System.out.println("The second call of InfiniteIterator.next() "
+          + "did not return the a string with one more :), "
+          + "than the previously returned string.");
+      return false;
+    }
+    if (it.hasNext() != true) {
+      System.out
+          .println("InfiniteIterator.next() returned false, " + "but should always return true.");
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Checks that an object of class FiniteIterator is behaving correctly (that is, it stops at the
+   * specified finite terminal node of the sequence)
+   * 
+   * @return true if test passed, false otherwise
+   */
+  public static boolean testFiniteIterator() {
+    InfiniteIterator<Integer> infinite = new InfiniteIterator<>(2, new NextPowerOfTwo());
+    FiniteIterator<Integer> it = new FiniteIterator<>(infinite, 8);
+    String s = "";
+    while (it.hasNext())
+      s += " " + it.next();
+    if (!s.equals(" 2 4 8 16 32 64 128 256")) {
+      System.out.println("Repeatedly called the next() method of a FiniteIterator,"
+          + "and the incorrect valuese were returned:" + s);
+      return false;
+    }
+    return true;
+  }
+
 }
 
 
@@ -82,13 +131,35 @@ public class TestDriver {
  * @author Travis Cao
  */
 class NextPowerOfTwo implements Function<Integer, Integer> {
+
   /**
    * Doubles an integer value
    * 
-   * @param previous An interger that has been returned previously and waiting to be doubled
-   * @return An integer that is twice the size of its input
+   * @param previous An Integer that has been returned previously and waiting to be doubled
+   * @return An Integer that is twice the size of its input
    */
   public Integer apply(Integer previous) {
     return 2 * previous;
   }
+
+}
+
+
+/**
+ * Adds a smiley face to the end of a string
+ * 
+ * @author Travis Cao
+ */
+class AddExtraSmile implements Function<String, String> {
+
+  /**
+   * Attaches a smiley face to the end of a string
+   * 
+   * @param t A String to attach an smiley face to
+   * @return The same String object, with an additional smiley face at the end
+   */
+  public String apply(String t) {
+    return t + " :)";
+  }
+
 }

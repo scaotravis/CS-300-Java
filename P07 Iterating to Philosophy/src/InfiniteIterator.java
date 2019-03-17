@@ -2,32 +2,31 @@ import java.util.Iterator;
 import java.util.function.Function;
 
 /**
- * Generates an infinite sequence of integers with a specified generating function and starting
- * point
+ * Generates an infinite sequence of objects with a specified generating function and starting point
  * 
  * @author Travis Cao
  */
-public class InfiniteIterator implements Iterator<Integer> {
+public class InfiniteIterator<T> implements Iterator<T> {
 
-  private Integer number;
-  private Function<Integer, Integer> generatingFunction;
+  private T t;
+  private Function<T, T> generatingFunction;
   private boolean firstCall = true; // keep track of whether this is the first call
 
   // Constructor
   /**
    * Initializes an object of class InfiniteInterator
    * 
-   * @param number             A starting point to iterate an infinite sequence of integers
-   * @param generatingFunction the function used to generates an infinite sequence of integers
+   * @param number             A starting point to iterate an infinite sequence
+   * @param generatingFunction the function used to generates an infinite sequence
    */
-  public InfiniteIterator(Integer number, Function<Integer, Integer> generatingFunction) {
-    this.number = number;
+  public InfiniteIterator(T t, Function<T, T> generatingFunction) {
+    this.t = t;
     this.generatingFunction = generatingFunction;
   }
 
   // Methods
   /**
-   * Checks if there exists an integer in the next sequence position. Since numbers are infinite,
+   * Checks if there exists an object in the next sequence position. Since numbers are infinite,
    * this method always returns true
    * 
    * @return true always
@@ -37,17 +36,17 @@ public class InfiniteIterator implements Iterator<Integer> {
   }
 
   /**
-   * Generates the next integer in sequence based on the pre-specified generating function
+   * Retrieves the next object in sequence based on the pre-specified generating function
    * 
-   * @return The next integer in sequence
+   * @return The next object in sequence
    */
-  public Integer next() {
+  public T next() {
     if (firstCall) {
       firstCall = false;
-      return this.number;
+      return this.t;
     } else {
-      this.number = this.generatingFunction.apply(this.number);
-      return this.number;
+      this.t = this.generatingFunction.apply(this.t);
+      return this.t;
     }
   }
 

@@ -33,7 +33,7 @@ public class EvenNumbers implements Iterator<Integer> {
   }
 
   /**
-   * Generates the smallest even number that is larger than the previously returned one
+   * Retrieves the smallest even number that is larger than the previously returned one
    * 
    * @return The smallest even number that is larger than the previously returned one
    */
