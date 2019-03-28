@@ -47,6 +47,13 @@ public class FiniteIterator<T> implements Iterator<T> {
   private int numberOfCalls = 0; // number of iterations already called
 
   // Constructor
+  /**
+   * Initializes an object of class FiniteInterator
+   * 
+   * @param infiniteIterator An InfiniteIterator object that serves as the baseline for a
+   *                         FiniteIterator object
+   * @param length           The length of the FiniteIterator
+   */
   public FiniteIterator(InfiniteIterator<T> infiniteIterator, int length) {
     this.infiniteIterator = infiniteIterator;
     this.length = length;
@@ -59,7 +66,7 @@ public class FiniteIterator<T> implements Iterator<T> {
    * @return true if there is an object in the next sequence position, false otherwise
    */
   public boolean hasNext() {
-    return this.numberOfCalls < this.length; 
+    return this.numberOfCalls < this.length;
   }
 
   /**
