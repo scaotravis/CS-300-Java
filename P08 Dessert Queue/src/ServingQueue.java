@@ -44,6 +44,7 @@ public class ServingQueue {
     } else {
       this.array[enqueueTo] = newGuest;
       enqueueTo = (enqueueTo + 1) % array.length;
+      this.size++; 
     }
   }
 
@@ -106,6 +107,10 @@ public class ServingQueue {
       while (currentIndex != firstIndex) {
         result += ", " + this.array[currentIndex].toString();
         currentIndex = (currentIndex + 1) % array.length;
+        // break while loop if there is no more guest within array to print 
+        if (this.array[currentIndex] == null) {
+          break; 
+        }
       }
     }
     result += "]";
