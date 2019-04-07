@@ -90,7 +90,7 @@ public class DessertSolvers {
    * @param coursesServed  Number of meal courses to serve
    * @return The Guest who will first get the dessert served
    */
-  public static Guest lastServedVariableCourses(int numberOfGuests, int coursesServed) {
+  public static Guest firstDessertVariableCourses(int numberOfGuests, int coursesServed) {
     if (numberOfGuests <= 0) {
       throw new IllegalArgumentException("Number of guests is not positive.");
     }
