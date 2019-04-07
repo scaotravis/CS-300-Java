@@ -34,7 +34,7 @@
 /////////////////////////////// 80 COLUMNS WIDE ///////////////////////////////
 
 /**
- * Models the serving of dessert queue
+ * Solves two dessert serving problems using ServingQueue
  * 
  * @author Travis Cao
  */
