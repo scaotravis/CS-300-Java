@@ -14,7 +14,7 @@ public interface Dictionary {
   public boolean isEmpty();
 
   /**
-   * adds this word definition (word and the provided meaning) to the dictionary
+   * Adds this word definition (word and the provided meaning) to the dictionary
    * 
    * @param word    The word to be added to the dictionary
    * @param meaning The meaning of the word to be added to the dictionary
@@ -25,6 +25,8 @@ public interface Dictionary {
   public boolean addWord(String word, String meaning);
 
   /**
+   * Looks up a specific word in the dictionary
+   * 
    * @param s The word to look up in the dictionary
    * @return The meaning of the word s if it is present in this dictionary
    * @throws NoSuchElementException if the word s was not found in this dictionary
@@ -32,6 +34,8 @@ public interface Dictionary {
   public String lookup(String s);
 
   /**
+   * Gets the number of words stored in this dictionary
+   * 
    * @return Number of words stored in this dictionary
    */
   public int size();
