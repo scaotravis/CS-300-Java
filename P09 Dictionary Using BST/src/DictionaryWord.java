@@ -23,6 +23,10 @@ public class DictionaryWord {
    *                                  was encountered.
    */
   public DictionaryWord(String word, String meaning) {
+    this.word = word;
+    this.meaning = meaning;
+    this.leftChild = null;
+    this.rightChild = null;
   }
 
   // Methods
@@ -32,6 +36,7 @@ public class DictionaryWord {
    * @return The left child of this dictionary word
    */
   public DictionaryWord getLeftChild() {
+    return this.leftChild;
   }
 
   /**
@@ -40,6 +45,7 @@ public class DictionaryWord {
    * @param leftChild The DictionaryWord node to be set as the left child of this dictionary word
    */
   public void setLeftChild(DictionaryWord leftChild) {
+    this.leftChild = leftChild;
   }
 
   /**
@@ -48,6 +54,7 @@ public class DictionaryWord {
    * @return The right child of this dictionary word
    */
   public DictionaryWord getRightChild() {
+    return this.rightChild;
   }
 
   /**
@@ -56,6 +63,7 @@ public class DictionaryWord {
    * @param rightChild The DictionaryWord node to be set as the right child of this dictionary word
    */
   public void setRightChild(DictionaryWord rightChild) {
+    this.rightChild = rightChild;
   }
 
   //
@@ -65,6 +73,7 @@ public class DictionaryWord {
    * @return The word of this dictionary word
    */
   public String getWord() {
+    return this.word;
   }
 
   /**
@@ -73,6 +82,7 @@ public class DictionaryWord {
    * @return The meaning of the word of this dictionary word
    */
   public String getMeaning() {
+    return this.meaning;
   }
 
   /**
@@ -81,10 +91,11 @@ public class DictionaryWord {
    * for the instance field word and the String "adj. Inspiring awe; dreaded." as value for meaning
    * field, the String representing that dictionaryWord is "Awesome: adj. Inspiring awe; dreaded."
    * 
-   * @return a String representation of this DictionaryWord
+   * @return A String representation of this DictionaryWord
    * @see java.lang.Object#toString()
    */
   public String toString() {
+    return this.word + ": " + this.meaning;
   }
 
 }
