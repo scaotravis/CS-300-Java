@@ -104,11 +104,7 @@ public class DictionaryBST implements Dictionary {
    * @return Number of words stored in this dictionary
    */
   public int size() {
-    if (!isEmpty()) {
-      return sizeHelper(root);
-    } else {
-      return 0;
-    }
+    return sizeHelper(root);
   }
 
   // Public methods not defined in the Dictionary interface
@@ -119,11 +115,7 @@ public class DictionaryBST implements Dictionary {
    * @return the height of this Binary Search Tree counting the number of DictionaryWord nodes
    */
   public int height() {
-    if (!isEmpty()) {
-      return heightHelper(root);
-    } else {
-      return 0;
-    }
+    return heightHelper(root);
   }
 
   /**
@@ -206,16 +198,20 @@ public class DictionaryBST implements Dictionary {
    * @return the size of the subtree rooted at current
    */
   private static int sizeHelper(DictionaryWord current) {
-    int subtreeSize = 1; // count current node
+    if (current != null) {
+      int subtreeSize = 1; // count current node
 
-    if (current.getLeftChild() != null) {
-      subtreeSize += sizeHelper(current.getLeftChild());
-    }
-    if (current.getRightChild() != null) {
-      subtreeSize += sizeHelper(current.getRightChild());
-    }
+      if (current.getLeftChild() != null) {
+        subtreeSize += sizeHelper(current.getLeftChild());
+      }
+      if (current.getRightChild() != null) {
+        subtreeSize += sizeHelper(current.getRightChild());
+      }
 
-    return subtreeSize;
+      return subtreeSize;
+    } else {
+      return 0;
+    }
   }
 
   /**
@@ -226,20 +222,24 @@ public class DictionaryBST implements Dictionary {
    *         from the current node to the deepest leaf in the subtree rooted at current
    */
   private static int heightHelper(DictionaryWord current) {
-    int heightLeft = 1;
-    int heightRight = 1;
+    if (current != null) {
+      int heightLeft = 1;
+      int heightRight = 1;
 
-    // get the height for the left tree
-    if (current.getLeftChild() != null) {
-      heightLeft += heightHelper(current.getLeftChild());
-    }
-    // get the height for the right tree
-    if (current.getLeftChild() != null) {
-      heightRight += heightHelper(current.getRightChild());
-    }
+      // get the height for the left tree
+      if (current.getLeftChild() != null) {
+        heightLeft += heightHelper(current.getLeftChild());
+      }
+      // get the height for the right tree
+      if (current.getLeftChild() != null) {
+        heightRight += heightHelper(current.getRightChild());
+      }
 
-    // height is the max of the two
-    return Math.max(heightLeft, heightRight);
+      // height is the max of the two
+      return Math.max(heightLeft, heightRight);
+    } else {
+      return 0;
+    }
   }
 
   /**
