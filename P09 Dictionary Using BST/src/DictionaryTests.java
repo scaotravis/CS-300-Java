@@ -134,13 +134,13 @@ public class DictionaryTests {
 
       String lookupMeaningD = dictTree.lookup("D");
       String lookupMeaningL = dictTree.lookup("l");
-      if (lookupMeaningD.equals("D: D meaning")) {
+      if (lookupMeaningD.equals("D meaning")) {
         subtestA = true;
       } else {
         System.out.println("Problem detected: when looking up a word existed in the DictionaryBST, "
             + "the meaning of the word should be returned. However, this is not the case.");
       }
-      if (lookupMeaningL.equals("L: L meaning")) {
+      if (lookupMeaningL.equals("L meaning")) {
         subtestB = true;
       } else {
         System.out.println("Problem detected: when looking up a word existed in the DictionaryBST, "

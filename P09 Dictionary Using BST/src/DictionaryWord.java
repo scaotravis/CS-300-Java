@@ -57,6 +57,13 @@ public class DictionaryWord {
    *                                  was encountered.
    */
   public DictionaryWord(String word, String meaning) {
+    if (word == null || word.equals("")) {
+      throw new IllegalArgumentException("The word to be added is not a valid String.");
+    }
+    if (meaning == null || meaning.equals("")) {
+      throw new IllegalArgumentException("Meaning of the word to be added is not a valid String.");
+    }
+
     this.word = word;
     this.meaning = meaning;
     this.leftChild = null;

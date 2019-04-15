@@ -137,7 +137,7 @@ public class DictionaryDriver {
           case "L": // L <word> look up word
             checkCommandArgumentsCount(commands, 2, "[L <word>]");
             try {
-              System.out.println(dictbst.lookup(commands[1]));
+              System.out.println(commands[1] + ": " + dictbst.lookup(commands[1]));
             } catch (NoSuchElementException e) {
               System.out.println("No definition found for the word " + commands[1]);
             }

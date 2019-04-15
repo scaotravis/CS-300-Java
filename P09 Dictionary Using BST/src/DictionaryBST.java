@@ -72,16 +72,9 @@ public class DictionaryBST implements Dictionary {
    * @throws IllegalArgumentException if either word or meaning is null or an empty String
    */
   public boolean addWord(String word, String meaning) {
-    if (word == null || word.equals("")) {
-      throw new IllegalArgumentException("The word to be added is not a valid String.");
-    }
-    if (meaning == null || meaning.equals("")) {
-      throw new IllegalArgumentException("Meaning of the word to be added is not a valid String.");
-    }
-
     DictionaryWord newWordNode = new DictionaryWord(word, meaning);
 
-    if (root == null) { // add to root
+    if (isEmpty()) { // add to root
       root = newWordNode;
       return true;
     } else { // add to branches
@@ -111,7 +104,7 @@ public class DictionaryBST implements Dictionary {
    * @return Number of words stored in this dictionary
    */
   public int size() {
-    if (root != null) {
+    if (!isEmpty()) {
       return sizeHelper(root);
     } else {
       return 0;
@@ -126,7 +119,7 @@ public class DictionaryBST implements Dictionary {
    * @return the height of this Binary Search Tree counting the number of DictionaryWord nodes
    */
   public int height() {
-    if (root != null) {
+    if (!isEmpty()) {
       return heightHelper(root);
     } else {
       return 0;
@@ -190,7 +183,7 @@ public class DictionaryBST implements Dictionary {
     int comparison = s.compareToIgnoreCase(current.getWord());
 
     if (comparison == 0) {
-      return current.toString();
+      return current.getMeaning();
     } else if (comparison < 0) { // go through the left child
       if (current.getLeftChild() != null) {
         return lookupHelper(s, current.getLeftChild());
