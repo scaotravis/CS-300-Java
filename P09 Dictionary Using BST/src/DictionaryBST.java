@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 /**
  * Models a Binary Search Tree for a Dictionary
@@ -22,7 +24,7 @@ public class DictionaryBST implements Dictionary {
    * @return true if the dictionary is empty; false otherwise
    */
   public boolean isEmpty() {
-    return root == null; 
+    return root == null;
   }
 
   /**
@@ -35,8 +37,21 @@ public class DictionaryBST implements Dictionary {
    * @throws IllegalArgumentException if either word or meaning is null or an empty String
    */
   public boolean addWord(String word, String meaning) {
-    // TODO Auto-generated method stub
-    return false;
+    if (word == null || word.equals("")) {
+      throw new IllegalArgumentException("The word to be added is not a valid String.");
+    }
+    if (meaning == null || meaning.equals("")) {
+      throw new IllegalArgumentException("Meaning of the word to be added is not a valid String.");
+    }
+
+    DictionaryWord newWordNode = new DictionaryWord(word, meaning);
+
+    if (root == null) { // add to root
+      root = newWordNode;
+      return true;
+    } else { // add to branches
+      return addWordHelper(newWordNode, root);
+    }
   }
 
   /**
@@ -47,8 +62,11 @@ public class DictionaryBST implements Dictionary {
    * @throws NoSuchElementException if the word s was not found in this dictionary
    */
   public String lookup(String s) {
-    // TODO Auto-generated method stub
-    return null;
+    if (!isEmpty()) {
+      return lookupHelper(s, root);
+    } else {
+      throw new NoSuchElementException("The DictionaryBST has no element");
+    }
   }
 
   /**
@@ -57,8 +75,11 @@ public class DictionaryBST implements Dictionary {
    * @return Number of words stored in this dictionary
    */
   public int size() {
-    // TODO Auto-generated method stub
-    return 0;
+    if (root != null) {
+      return sizeHelper(root);
+    } else {
+      return 0;
+    }
   }
 
   // Public methods not defined in the Dictionary interface
@@ -69,6 +90,11 @@ public class DictionaryBST implements Dictionary {
    * @return the height of this Binary Search Tree counting the number of DictionaryWord nodes
    */
   public int height() {
+    if (root != null) {
+      return heightHelper(root);
+    } else {
+      return 0;
+    }
   }
 
   /**
@@ -78,6 +104,7 @@ public class DictionaryBST implements Dictionary {
    *         order
    */
   public ArrayList<String> getAllWords() {
+    return getAllWordsHelper(root);
   }
 
   // Recursive private helper methods
@@ -91,7 +118,26 @@ public class DictionaryBST implements Dictionary {
    * @return true if the newWordNode is successfully added to this dictionary, false otherwise
    */
   private static boolean addWordHelper(DictionaryWord newWordNode, DictionaryWord current) {
-    
+    // stores how the newWordNode compares with current node
+    int comparison = newWordNode.getWord().compareTo(current.getWord());
+
+    if (comparison == 0) { // duplicated words not allowed -> return false always
+      return false;
+    } else if (comparison < 0) { // add to left child
+      if (current.getLeftChild() == null) {
+        current.setLeftChild(newWordNode);
+        return true;
+      } else {
+        return addWordHelper(newWordNode, current.getLeftChild());
+      }
+    } else {// add to right child
+      if (current.getRightChild() == null) {
+        current.setRightChild(newWordNode);
+        return true;
+      } else {
+        return addWordHelper(newWordNode, current.getRightChild());
+      }
+    }
   }
 
   /**
@@ -103,6 +149,23 @@ public class DictionaryBST implements Dictionary {
    * @throws NoSuchElementException if s is not found in this dictionary
    */
   private static String lookupHelper(String s, DictionaryWord current) {
+    // examine which direction within the tree should we continue to look up
+    int comparison = s.compareToIgnoreCase(current.getWord());
+
+    if (comparison == 0) {
+      return current.getMeaning();
+    } else if (comparison < 0) { // go through the left child
+      if (current.getLeftChild() != null) {
+        return lookupHelper(s, current.getLeftChild());
+      }
+    } else { // go through the right child
+      if (current.getRightChild() != null) {
+        return lookupHelper(s, current.getRightChild());
+      }
+    }
+
+    // if nothing has been found
+    throw new NoSuchElementException("Word " + s + " is not found in this dictionary.");
   }
 
   /**
@@ -113,6 +176,16 @@ public class DictionaryBST implements Dictionary {
    * @return the size of the subtree rooted at current
    */
   private static int sizeHelper(DictionaryWord current) {
+    int subtreeSize = 1; // count current node
+
+    if (current.getLeftChild() != null) {
+      subtreeSize += sizeHelper(current.getLeftChild());
+    }
+    if (current.getRightChild() != null) {
+      subtreeSize += sizeHelper(current.getRightChild());
+    }
+
+    return subtreeSize;
   }
 
   /**
@@ -123,6 +196,20 @@ public class DictionaryBST implements Dictionary {
    *         from the current node to the deepest leaf in the subtree rooted at current
    */
   private static int heightHelper(DictionaryWord current) {
+    int heightLeft = 1;
+    int heightRight = 1;
+
+    // get the height for the left tree
+    if (current.getLeftChild() != null) {
+      heightLeft += heightHelper(current.getLeftChild());
+    }
+    // get the height for the right tree
+    if (current.getLeftChild() != null) {
+      heightRight += heightHelper(current.getRightChild());
+    }
+
+    // height is the max of the two
+    return Math.max(heightLeft, heightRight);
   }
 
   /**
@@ -133,6 +220,24 @@ public class DictionaryBST implements Dictionary {
    * @return an ArrayList of all the words stored in the subtree rooted at current
    */
   private static ArrayList<String> getAllWordsHelper(DictionaryWord current) {
+    ArrayList<String> allWords = new ArrayList<>();
+
+    // base case: current is null
+    if (current == null) {
+      return allWords;
+    } else { // current is not null
+      // current has leftChild
+      if (current.getLeftChild() != null) {
+        allWords.addAll(getAllWordsHelper(current.getLeftChild()));
+      }
+      // add current node
+      allWords.add(current.toString());
+      // current has rightChild
+      if (current.getRightChild() != null) {
+        allWords.addAll(getAllWordsHelper(current.getRightChild()));
+      }
+      return allWords;
+    }
   }
 
 }
