@@ -43,12 +43,12 @@ public class DictionaryTests {
       dictTree.addWord("L", "L meaning");
       ArrayList<String> allWords = dictTree.getAllWords();
       ArrayList<String> comparison = new ArrayList<>();
-      comparison.add("A: A meaning");
-      comparison.add("B: B meaning");
-      comparison.add("C: C meaning");
-      comparison.add("D: D meaning");
-      comparison.add("K: K meaning");
-      comparison.add("L: L meaning");
+      comparison.add("A");
+      comparison.add("B");
+      comparison.add("C");
+      comparison.add("D");
+      comparison.add("K");
+      comparison.add("L");
 
       boolean eachComparison = true;
       String allWordsToString = "[ ";
@@ -99,13 +99,13 @@ public class DictionaryTests {
 
       String lookupMeaningD = dictTree.lookup("D");
       String lookupMeaningL = dictTree.lookup("l");
-      if (lookupMeaningD.equals("D meaning")) {
+      if (lookupMeaningD.equals("D: D meaning")) {
         subtestA = true;
       } else {
         System.out.println("Problem detected: when looking up a word existed in the DictionaryBST, "
             + "the meaning of the word should be returned. However, this is not the case.");
       }
-      if (lookupMeaningL.equals("L meaning")) {
+      if (lookupMeaningL.equals("L: L meaning")) {
         subtestB = true;
       } else {
         System.out.println("Problem detected: when looking up a word existed in the DictionaryBST, "

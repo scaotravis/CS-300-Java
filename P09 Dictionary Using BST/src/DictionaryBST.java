@@ -65,7 +65,8 @@ public class DictionaryBST implements Dictionary {
     if (!isEmpty()) {
       return lookupHelper(s, root);
     } else {
-      throw new NoSuchElementException("The DictionaryBST has no element");
+      System.out.println("There are no definitions in this empty dictionary.");
+      return null;
     }
   }
 
@@ -119,9 +120,10 @@ public class DictionaryBST implements Dictionary {
    */
   private static boolean addWordHelper(DictionaryWord newWordNode, DictionaryWord current) {
     // stores how the newWordNode compares with current node
-    int comparison = newWordNode.getWord().compareTo(current.getWord());
+    int comparison = newWordNode.getWord().compareToIgnoreCase(current.getWord());
 
     if (comparison == 0) { // duplicated words not allowed -> return false always
+      System.out.println("WARNING: failed to add duplicate word: " + newWordNode.getWord());
       return false;
     } else if (comparison < 0) { // add to left child
       if (current.getLeftChild() == null) {
@@ -153,7 +155,7 @@ public class DictionaryBST implements Dictionary {
     int comparison = s.compareToIgnoreCase(current.getWord());
 
     if (comparison == 0) {
-      return current.getMeaning();
+      return current.toString();
     } else if (comparison < 0) { // go through the left child
       if (current.getLeftChild() != null) {
         return lookupHelper(s, current.getLeftChild());
@@ -231,7 +233,7 @@ public class DictionaryBST implements Dictionary {
         allWords.addAll(getAllWordsHelper(current.getLeftChild()));
       }
       // add current node
-      allWords.add(current.toString());
+      allWords.add(current.getWord());
       // current has rightChild
       if (current.getRightChild() != null) {
         allWords.addAll(getAllWordsHelper(current.getRightChild()));
