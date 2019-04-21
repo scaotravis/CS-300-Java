@@ -6,30 +6,30 @@
  */
 public class SupportTicket implements Comparable<SupportTicket> {
 
-  private String input; // stores the content of the ticket that determines the ticket's priority
+  private String message; // stores the content of the ticket that determines the ticket's priority
 
   // Constructor
   /**
-   * Initializes a new SupportTicket object with a ticket input message
+   * Initializes a new SupportTicket object with a ticket message
    * 
-   * @param input Input of the ticket that determines the priority of the ticket
+   * @param message Message of the ticket that determines the priority of the ticket
    */
-  public SupportTicket(String input) {
-    if (input != null) {
-      this.input = input;
+  public SupportTicket(String message) {
+    if (message != null) {
+      this.message = message;
     } else {
-      throw new NullPointerException("Ticket input should not be null.");
+      throw new NullPointerException("Ticket message should not be null.");
     }
   }
 
   // Methods
   /**
-   * Returns the input of a SupportTicket object which determines the priority of the ticket
+   * Returns the message of a SupportTicket object which determines the priority of the ticket
    * 
-   * @return The input set for each SupportTicket object
+   * @return The message set for each SupportTicket object
    */
   public String toString() {
-    return this.input;
+    return this.message;
   }
 
   /**
