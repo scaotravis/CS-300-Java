@@ -30,8 +30,19 @@ public class HelpDesk implements HelpDeskInterface {
    * @throws IndexOutOfBoundsException when called on HelpDesk with a full array
    */
   public void createNewTicket(String message) {
-    this.array[size] = new SupportTicket(message);
-
+    array[size] = new SupportTicket(message);
+    size++;
+    int currentIndex = size - 1;
+    int parentIndex = parentOf(currentIndex);
+    while (parentIndex != -1) {
+      if (array[currentIndex].compareTo(array[parentIndex]) > 0) {
+        swap(currentIndex, parentIndex);
+        currentIndex = parentIndex;
+        parentIndex = parentOf(currentIndex);
+      } else {
+        break;
+      }
+    }
   }
 
   /**
@@ -42,8 +53,11 @@ public class HelpDesk implements HelpDeskInterface {
    * @throws IllegalStateException when called on a HelpDesk with zero SupportTickets.
    */
   public String checkNextTicket() {
-    // TODO Auto-generated method stub
-    return null;
+    if (size != 0) {
+      return array[0].toString();
+    } else {
+      throw new IllegalStateException("This HelpDesk has 0 SupportTickets.");
+    }
   }
 
   /**
@@ -53,23 +67,38 @@ public class HelpDesk implements HelpDeskInterface {
    * @throws IllegalStateException when called on a HelpDesk with zero SupportTickets.
    */
   public String closeNextTicket() {
-    // TODO Auto-generated method stub
-    return null;
+    String highestPriorityTicket = array[0].toString();
+    array[0] = array[size - 1];
+    size--;
+    int currentIndex = 0;
+    int maxChild = leftChildOf(currentIndex);
+    int potentialRightChild = rightChildOf(currentIndex);
+    while (maxChild < size) { // enforce heap order property
+      if (potentialRightChild < size) {
+        if (array[maxChild].compareTo(array[potentialRightChild]) < 0) {
+          maxChild = potentialRightChild;
+        }
+      }
+      if (array[maxChild].compareTo(array[currentIndex]) > 0) {
+        swap(currentIndex, maxChild);
+      } else {
+        break; 
+      }
+      currentIndex = maxChild;
+      maxChild = leftChildOf(currentIndex);
+      potentialRightChild = rightChildOf(currentIndex);
+    }
+    return highestPriorityTicket;
   }
 
   /**
    * Given an index into the heap array, this method returns that index's parent index
    * 
    * @param index The index of the heap array element which needs to find its parent
-   * @return The index of current heap array element's parent
-   * @throws IllegealArgumentException if index is zero (at the root) or negative (cannot happen)
+   * @return The index of current heap array element's parent; -1 if the current element is the root
    */
   protected static int parentOf(int index) {
-    if (index >= 0) {
-      return ((index + 1) / 2) - 1;
-    } else {
-      throw new IllegalArgumentException("This element does not have a parent.");
-    }
+    return ((index + 1) / 2) - 1;
   }
 
   /**
@@ -123,8 +152,8 @@ public class HelpDesk implements HelpDeskInterface {
   protected void propagateDown(int index) {
     int maxChild = leftChildOf(index);
     int potentialRightChild = rightChildOf(index);
-    if (potentialRightChild < this.size) {
-      if (this.array[maxChild].compareTo(this.array[potentialRightChild]) < 0) {
+    if (potentialRightChild < size) {
+      if (array[maxChild].compareTo(array[potentialRightChild]) < 0) {
         maxChild = potentialRightChild;
       }
     }
