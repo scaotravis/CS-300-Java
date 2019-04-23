@@ -165,9 +165,9 @@ public class HelpDesk implements HelpDeskInterface {
 
   /**
    * Given an index into the heap array, this method recursively swaps any SupportTickets necessary
-   * to enforce the heap's order property between this index and the heap's root.
+   * to enforce the heap's order property between this index and its parent
    * 
-   * @param index The index of the array element to swap with the heap's root
+   * @param index The index of the array element to swap with its parent
    */
   protected void propagateUp(int index) {
     int parentIndex = parentOf(index); 
