@@ -1,3 +1,37 @@
+//////////////////// ALL ASSIGNMENTS INCLUDE THIS SECTION /////////////////////
+//
+// Title: P10 Help Desk
+// Files: "SupportTicket.java", "HelpDesk.java", "HelpDeskInterface.java",
+// "HelpDeskTestSuite.java"
+// Course: CS 300, Spring, 2019
+//
+// Author: Travis Cao
+// Email: travis.cao@wisc.edu
+// Lecturer's Name: Gary Dahl
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
+//
+// Partner Name: NONE
+// Partner Email: N/A
+// Partner Lecturer's Name: N/A
+//
+// VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
+// ___ Write-up states that pair programming is allowed for this assignment.
+// ___ We have both read and understand the course Pair Programming Policy.
+// ___ We have registered our team prior to the team registration deadline.
+//
+///////////////////////////// CREDIT OUTSIDE HELP /////////////////////////////
+//
+// Students who get help from sources other than their partner must fully
+// acknowledge and credit those sources of help here. Instructors and TAs do
+// not need to be credited here, but tutors, friends, relatives, room mates,
+// strangers, and others do. If you received no outside help from either type
+// of source, then please explicitly indicate NONE.
+//
+// Persons: NONE
+// Online Sources: NONE
+//
+/////////////////////////////// 80 COLUMNS WIDE ///////////////////////////////
 
 /**
  * Models a priority queue
@@ -30,6 +64,13 @@ public class HelpDesk implements HelpDeskInterface {
    * @throws IndexOutOfBoundsException when called on HelpDesk with a full array
    */
   public void createNewTicket(String message) {
+    if (size == array.length) {
+      throw new IndexOutOfBoundsException("HelpDesk is full.");
+    }
+    if (message == null) {
+      throw new NullPointerException("Message of the ticket is null.");
+    }
+
     array[size] = new SupportTicket(message);
     size++;
     int currentIndex = size - 1;
@@ -67,27 +108,16 @@ public class HelpDesk implements HelpDeskInterface {
    * @throws IllegalStateException when called on a HelpDesk with zero SupportTickets.
    */
   public String closeNextTicket() {
+    if (size == 0) {
+      throw new IllegalStateException("This HelpDesk has 0 SupportTickets.");
+    }
+
     String highestPriorityTicket = array[0].toString();
     array[0] = array[size - 1];
+    array[size - 1] = null;
     size--;
-    int currentIndex = 0;
-    int maxChild = leftChildOf(currentIndex);
-    int potentialRightChild = rightChildOf(currentIndex);
-    while (maxChild < size) { // enforce heap order property
-      if (potentialRightChild < size) {
-        if (array[maxChild].compareTo(array[potentialRightChild]) < 0) {
-          maxChild = potentialRightChild;
-        }
-      }
-      if (array[maxChild].compareTo(array[currentIndex]) > 0) {
-        swap(currentIndex, maxChild);
-      } else {
-        break; 
-      }
-      currentIndex = maxChild;
-      maxChild = leftChildOf(currentIndex);
-      potentialRightChild = rightChildOf(currentIndex);
-    }
+    this.propagateDown(0); // enforce heap order property from the root
+
     return highestPriorityTicket;
   }
 
@@ -140,7 +170,16 @@ public class HelpDesk implements HelpDeskInterface {
    * @param index The index of the array element to swap with the heap's root
    */
   protected void propagateUp(int index) {
-    swap(index, 0); // root is at index 0
+    int parentIndex = parentOf(index); 
+    while (parentIndex != -1) {
+      if (array[parentIndex].compareTo(array[index]) < 0) {
+        swap(parentIndex, index); 
+      } else {
+        break; 
+      }
+      index = parentIndex; 
+      parentIndex = parentOf(index); 
+    }
   }
 
   /**
@@ -151,13 +190,21 @@ public class HelpDesk implements HelpDeskInterface {
    */
   protected void propagateDown(int index) {
     int maxChild = leftChildOf(index);
-    int potentialRightChild = rightChildOf(index);
-    if (potentialRightChild < size) {
-      if (array[maxChild].compareTo(array[potentialRightChild]) < 0) {
-        maxChild = potentialRightChild;
+    while (maxChild < this.size) {
+      int potentialRightChild = rightChildOf(index);
+      if (potentialRightChild < size) {
+        if (array[maxChild].compareTo(array[potentialRightChild]) < 0) {
+          maxChild = potentialRightChild;
+        }
       }
+      if (array[maxChild].compareTo(array[index]) > 0) {
+        swap(index, maxChild); // swap with the bigger of the two children to propagate down
+      } else {
+        break;
+      }
+      index = maxChild; 
+      maxChild = leftChildOf(index);
     }
-    swap(index, maxChild); // swap with the bigger of the two children to propagate down
   }
 
 }
