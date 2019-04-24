@@ -1,0 +1,9 @@
+
+public class SupportTicket implements Comparable<SupportTicket> {
+
+  public int compareTo(SupportTicket o) {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+}

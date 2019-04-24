@@ -1,0 +1,30 @@
+
+/**
+ * Implements tests to check the functionality of HelpDesk
+ * 
+ * @author Travis Cao
+ */
+public class HelpDeskTestSuite extends HelpDesk {
+
+  /**
+   * Main method to call all testing methods
+   * 
+   * @param args Arguments of the testing commands
+   */
+  public static void main(String[] args) {
+    System.out.println("=== TESING BEGINS ===" + System.lineSeparator());
+    System.out.println("=== TESTING CONCLUDES ====");
+  }
+
+  /**
+   * Constructor included so that this class extends HelpDesk and can access its protected methods;
+   * no actual HelpDeskTestSuite object will be created
+   * 
+   * @param capacity
+   */
+  public HelpDeskTestSuite(int capacity) {
+    super(capacity);
+  }
+
+
+}

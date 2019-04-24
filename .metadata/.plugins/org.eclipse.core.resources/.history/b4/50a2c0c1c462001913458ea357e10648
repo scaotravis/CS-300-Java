@@ -1,0 +1,57 @@
+
+/**
+ * Models a support ticket received by the help desk
+ * 
+ * @author Travis Cao
+ */
+public class SupportTicket implements Comparable<SupportTicket> {
+
+  private String input; 
+  
+  // Constructor
+  /**
+   * Initializes a new SupportTicket object with a ticket input message
+   * 
+   * @param input Input of the ticket that determines the priority of the ticket 
+   */
+  public SupportTicket(String input) {
+    if (input != null) {
+      this.input = input; 
+    } else {
+      throw new NullPointerException("Ticket input should not be null."); 
+    }
+  }
+
+  // Methods
+  /**
+   * Returns the input of a SupportTicket object which determines the priority of the ticket
+   * 
+   * @return The input set for each SupportTicket object
+   */
+  public String toString() {
+    return this.input;
+  }
+  
+  /**
+   * Compares the priority of tickets in order to later prioritize
+   * 
+   * @param o A different SupportTicket to compare priority with
+   * @return A negative integer, zero, or a positive integer as this object is less than, equal to,
+   *         or greater than the SupportTicket compared.
+   * 
+   *         If the other SupportTicket has a longer content is longer, a positive value will be returned; in terms of
+   *         tickets with the same length, lexographical order determines the returned value (i.e.
+   *         if the other SupportTicket's first character in the String is in the latter part of the
+   *         alphabet, then a positive value will be returned)
+   */
+  public int compareTo(SupportTicket o) {
+    if (this.toString().length() > o.toString().length()) {
+      return 1; 
+    } else if (this.toString().length() < o.toString().length()) {
+      return -1; 
+    } else { // two SupportTicket's inputs are of the same length
+      
+    }
+  }
+
+}
