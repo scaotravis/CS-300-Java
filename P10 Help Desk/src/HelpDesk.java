@@ -170,16 +170,16 @@ public class HelpDesk implements HelpDeskInterface {
    * @param index The index of the array element to swap with its parent
    */
   protected void propagateUp(int index) {
-    int parentIndex = parentOf(index); 
+    int parentIndex = parentOf(index);
     if (parentIndex == -1) {
-      // do nothing: already at the root; no where to propagate up
+      // do nothing: already at the root; no need to propagate up
     } else {
       if (array[parentIndex].compareTo(array[index]) >= 0) {
         // do nothing: parent is already of higher priority compared with current ticket
       } else {
-        swap(parentIndex, index); 
-        index = parentIndex; 
-        propagateUp(index); 
+        swap(parentIndex, index);
+        index = parentIndex;
+        propagateUp(index);
       }
     }
   }
@@ -202,11 +202,11 @@ public class HelpDesk implements HelpDeskInterface {
         }
       }
       if (array[maxChild].compareTo(array[index]) <= 0) {
-        // do nothing: ticket at maxChild is even of lower priority
+        // do nothing: ticket at maxChild is of lower priority
       } else {
         swap(index, maxChild); // swap with the bigger of the two children to propagate down
-        index = maxChild; 
-        propagateDown(index); 
+        index = maxChild;
+        propagateDown(index);
       }
     }
   }
