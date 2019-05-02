@@ -192,7 +192,7 @@ public class HelpDesk implements HelpDeskInterface {
    */
   protected void propagateDown(int index) {
     int maxChild = leftChildOf(index);
-    if (maxChild >= this.size) { // SHOULD BE GREATER OR EQUAL TO
+    if (maxChild >= this.size) {
       // do nothing: a left child does not even exist
     } else {
       int potentialRightChild = rightChildOf(index);

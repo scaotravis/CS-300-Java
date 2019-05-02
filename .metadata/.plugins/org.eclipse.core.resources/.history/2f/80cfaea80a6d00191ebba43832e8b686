@@ -1,0 +1,14 @@
+
+public class GradeScopeCheck {
+
+  public static void main(String[] args) {
+    HelpDesk hd = new HelpDesk(4); 
+    
+    hd.createNewTicket("1");
+    hd.createNewTicket("2");
+    hd.createNewTicket("3");
+    hd.closeNextTicket(); 
+    // System.out.println(hd.closeNextTicket());
+  }
+
+}
