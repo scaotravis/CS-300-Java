@@ -231,7 +231,7 @@ public class DictionaryBST implements Dictionary {
         heightLeft += heightHelper(current.getLeftChild());
       }
       // get the height for the right tree
-      if (current.getRightChild() != null) {
+      if (current.getLeftChild() != null) {
         heightRight += heightHelper(current.getRightChild());
       }
 
