@@ -11,6 +11,7 @@
     <persistedState key="workingSets" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workingSets/>"/>
     <persistedState key="aggregateWorkingSetId" value="Aggregate for window 1550419187195"/>
     <tags>topLevel</tags>
+    <tags>shellMaximized</tags>
     <children xsi:type="basic:PartSashContainer" xmi:id="_U2emUmRKEemNT6rdoVaX9Q" selectedElement="_U2emU2RKEemNT6rdoVaX9Q" horizontal="true">
       <children xsi:type="advanced:PerspectiveStack" xmi:id="_U2emU2RKEemNT6rdoVaX9Q" elementId="org.eclipse.ui.ide.perspectivestack" containerData="7500" selectedElement="_U2emVGRKEemNT6rdoVaX9Q">
         <children xsi:type="advanced:Perspective" xmi:id="_U2emVGRKEemNT6rdoVaX9Q" elementId="org.eclipse.jdt.ui.JavaPerspective" selectedElement="_U2emVWRKEemNT6rdoVaX9Q" label="Java" iconURI="platform:/plugin/org.eclipse.jdt.ui/$nl$/icons/full/eview16/jperspective.png">
@@ -641,7 +642,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_U2gbkmRKEemNT6rdoVaX9Q" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_nHpCgGz7EemCWth6zwyCWw" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_U2je62RKEemNT6rdoVaX9Q"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_42QoQHH8EemrH4zkw_gH6A" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_U2je62RKEemNT6rdoVaX9Q"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_U2gbn2RKEemNT6rdoVaX9Q" elementId="group.edit" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -676,7 +677,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_U2gb72RKEemNT6rdoVaX9Q" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_nHt7AGz7EemCWth6zwyCWw" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_U2i4vWRKEemNT6rdoVaX9Q"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_42VgwHH8EemrH4zkw_gH6A" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_U2i4vWRKEemNT6rdoVaX9Q"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_U2gb-mRKEemNT6rdoVaX9Q" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -1127,7 +1128,7 @@
       <tags>platform:cocoa</tags>
       <parameters xmi:id="_U2hDLmRKEemNT6rdoVaX9Q" elementId="org.eclipse.ui.views.showView.viewId" name="org.eclipse.ui.views.showView.viewId" value="org.eclipse.ui.console.ConsoleView"/>
     </bindings>
-    <bindings xmi:id="_mkerEWz7EemCWth6zwyCWw" keySequence="COMMAND+CTRL+F" command="_U2jgDmRKEemNT6rdoVaX9Q"/>
+    <bindings xmi:id="_4cPlwXH8EemrH4zkw_gH6A" keySequence="COMMAND+CTRL+F" command="_U2jgDmRKEemNT6rdoVaX9Q"/>
   </bindingTables>
   <bindingTables xmi:id="_U2hDMGRKEemNT6rdoVaX9Q" elementId="org.eclipse.debug.ui.debugging" bindingContext="_U2hD5GRKEemNT6rdoVaX9Q">
     <bindings xmi:id="_U2hDMWRKEemNT6rdoVaX9Q" keySequence="COMMAND+F2" command="_U2i5B2RKEemNT6rdoVaX9Q"/>
@@ -1303,7 +1304,7 @@
     <bindings xmi:id="_U2hDnWRKEemNT6rdoVaX9Q" keySequence="ALT+CR" command="_U2iSsWRKEemNT6rdoVaX9Q"/>
   </bindingTables>
   <bindingTables xmi:id="_U2hDnmRKEemNT6rdoVaX9Q" contributorURI="platform:/fragment/org.eclipse.e4.ui.workbench.renderers.swt.cocoa" bindingContext="_U2hD62RKEemNT6rdoVaX9Q">
-    <bindings xmi:id="_mkfSIGz7EemCWth6zwyCWw" keySequence="M1+W" command="_U2jgEGRKEemNT6rdoVaX9Q"/>
+    <bindings xmi:id="_4cQM0HH8EemrH4zkw_gH6A" keySequence="M1+W" command="_U2jgEGRKEemNT6rdoVaX9Q"/>
   </bindingTables>
   <bindingTables xmi:id="_U2hDoGRKEemNT6rdoVaX9Q" bindingContext="_U2hD8WRKEemNT6rdoVaX9Q"/>
   <bindingTables xmi:id="_U2hDoWRKEemNT6rdoVaX9Q" bindingContext="_U2hD8mRKEemNT6rdoVaX9Q"/>
